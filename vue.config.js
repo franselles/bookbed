@@ -1,8 +1,8 @@
 module.exports = {
   pwa: {
     lang: 'es-ES',
-    name: 'HAMACAS 2020',
-    short_name: 'HAMACAS 2020',
+    name: 'PLAYASBENIDORM',
+    short_name: 'PLAYASBENIDORM',
     themeColor: '#f37321',
     background_color: '#e7e552',
     appleMobileWebAppCapable: 'yes',
