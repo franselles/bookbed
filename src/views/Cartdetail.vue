@@ -29,13 +29,19 @@
       </div>
     </article>
 
+    <!-- :class=" items.date == date ? 'message is-primary' : ' message is-warning' " -->
+
     <div v-for="items in ticketsDay" :key="items.index" class="card-custom">
-      <article
-        :class="
-          items.date == date ? 'message is-primary' : ' message is-warning'
-        "
-      >
+      <article :class="stateTicket(items)">
         <div class="message-body">
+          <b-field v-if="items.used">
+            <div>
+              ESTADO DEL TICKET:
+              <span class="tag is-danger is-medium has-text-weight-bold"
+                >USADO</span
+              >
+            </div>
+          </b-field>
           <b-field>
             <div>
               FECHA TICKET:
@@ -121,6 +127,18 @@ export default {
 
     formatDate(date) {
       return dayjs(date).format('DD-MM-YYYY');
+    },
+
+    stateTicket(item) {
+      if (item.used == true) {
+        return 'message is-danger';
+      }
+
+      if (item.date == this.date) {
+        return 'message is-primary';
+      }
+
+      return 'message is-warning';
     },
   },
 

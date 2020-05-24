@@ -23,7 +23,7 @@ api.get('/cities', citiesControl.getCities);
 api.get('/beaches', middlewareRouter, beachesControl.getBeaches);
 
 // Carts
-api.post('/cart', middlewareRouter, cartsControl.postCart2);
+api.post('/cart', middlewareRouter, cartsControl.postCart);
 api.get('/carts', middlewareRouter, cartsControl.getCarts);
 api.get('/tickets', middlewareRouter, cartsControl.getTicketNumber);
 api.get('/detailday', middlewareRouter, cartsControl.getCartsDetail);

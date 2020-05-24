@@ -47,6 +47,8 @@ async function getCarts(querystring) {
         col: '$detail.col',
         row: '$detail.row',
         price: '$detail.price',
+        used: '$detail.used',
+        dateTimeUsed: '$detail.dateTimeUsed',
         numberItem: '$detail.numberItem',
       },
     },

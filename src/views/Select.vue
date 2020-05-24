@@ -20,7 +20,15 @@
     <article class="message is-warning">
       <div class="message-body">
         <b-button type="is-warning" @click="booked" expanded
-          >VER RESERVAS</b-button
+          >VER RESERVA DEL DIA</b-button
+        >
+      </div>
+    </article>
+
+    <article class="message is-primary">
+      <div class="message-body">
+        <b-button type="is-primary" @click="shopped" expanded
+          >VER COMPRAS REALIZADAS</b-button
         >
       </div>
     </article>
@@ -43,6 +51,10 @@ export default {
 
     booked() {
       this.$router.push({ name: 'cartdetail' });
+    },
+
+    shopped() {
+      this.$router.push({ name: 'cartsuser' });
     },
 
     back() {

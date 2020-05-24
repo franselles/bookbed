@@ -3,26 +3,6 @@
 const Carts = require('../models/carts_model');
 
 function postCart(req, res) {
-  const data = new Carts();
-
-  data.date = req.body.date;
-  data.userID = req.body.userID;
-  data.phone = req.body.phone;
-  data.ticketID = req.body.ticketID;
-  data.canceled = req.body.canceled;
-  data.detail = req.body.detail;
-
-  data.save((err, docStored) => {
-    if (err)
-      res.status(500).send({
-        message: `Error al salvar en la base de datos: ${err} `,
-      });
-
-    res.status(200).send(docStored._id);
-  });
-}
-
-function postCart2(req, res) {
   const cart = req.body;
 
   try {
@@ -138,7 +118,8 @@ function getCartsDetail(req, res) {
     {
       $match: {
         userID: userID,
-        'detail.date': { $gte: date },
+        // 'detail.date': { $gte: date },
+        'detail.date': date,
       },
     },
     { $sort: { 'detail.date': 1, col: 1, row: 1 } },
@@ -208,5 +189,4 @@ module.exports = {
   getCarts,
   getTicketNumber,
   getCartsDetail,
-  postCart2,
 };
