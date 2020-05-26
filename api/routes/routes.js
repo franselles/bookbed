@@ -13,8 +13,12 @@ const usersControl = require('../controllers/users_control.js');
 const filledControl = require('../controllers/filled_control.js');
 const sectorsControl = require('../controllers/sectors_control.js');
 const cartsControl = require('../controllers/carts_control.js');
+const stripeControl = require('../controllers/stripe_control.js');
 
 // const usersControl = require('../controllers/users_control.js');
+
+// Stripe
+api.post('/secret', stripeControl.paymentIntent);
 
 // Cities
 api.get('/cities', citiesControl.getCities);
@@ -23,10 +27,12 @@ api.get('/cities', citiesControl.getCities);
 api.get('/beaches', middlewareRouter, beachesControl.getBeaches);
 
 // Carts
+api.post('/cartfinal', middlewareRouter, cartsControl.postCartFinal);
 api.post('/cart', middlewareRouter, cartsControl.postCart);
 api.get('/carts', middlewareRouter, cartsControl.getCarts);
 api.get('/tickets', middlewareRouter, cartsControl.getTicketNumber);
 api.get('/detailday', middlewareRouter, cartsControl.getCartsDetail);
+api.delete('/cart', middlewareRouter, cartsControl.deleteCartFinal);
 
 // Users
 api.get('/user/email', usersControl.checkEmail);

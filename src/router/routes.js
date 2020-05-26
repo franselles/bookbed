@@ -63,4 +63,10 @@ export default [
     component: () => import('@/views/Cartdetail.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/stripepay',
+    name: 'stripepay',
+    component: () => import('@/views/Stripepay.vue'),
+    meta: { requiresAuth: true },
+  },
 ];

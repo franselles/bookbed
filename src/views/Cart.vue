@@ -82,7 +82,7 @@
       <b-button
         icon-left="shopping"
         type="is-success"
-        @click="purchase"
+        @click="check"
         :disabled="!purchased"
         >COMPRAR</b-button
       >
@@ -145,27 +145,28 @@ export default {
   },
 
   methods: {
-    ...mapActions('userStore', ['postCart', 'checkCart', 'getTicketNumber']),
+    ...mapActions('userStore', [
+      'postCart',
+      'checkCart',
+      'getTicketNumber',
+      'checkCart',
+    ]),
     ...mapMutations('userStore', ['setCart', 'resetCart']),
 
     cancel() {
       this.$router.replace({ name: 'sector' });
     },
 
-    purchase() {
+    check() {
       this.getTicketNumber({ date: this.cartLocal.date }).then(result => {
         this.cartLocal.ticketID = (
           this.cartLocal.date + ('00000' + result).slice(-5)
         ).replace(/-/g, '');
-
-        this.postCart(this.cartLocal).then(result => {
-          if (result === true) {
-            setTimeout(() => {
-              this.resetCart();
-              this.$router.replace({ name: 'citybeaches' });
-            }, 2000);
-          } else {
+        this.detailDuplicated = [];
+        try {
+          this.checkCart({ cart: this.cartLocal.detail }).then(result => {
             this.detailDuplicated = result;
+
             result.forEach(element => {
               const index = this.cartLocal.detail.findIndex(
                 (p => p.citiID === element.cityID) &&
@@ -182,9 +183,13 @@ export default {
             if (this.detailDuplicated.length > 0) {
               this.setCart(this.cartLocal);
               this.calcTotal();
+              return;
             }
-          }
-        });
+            this.$router.push({ name: 'stripepay' });
+          });
+        } catch (error) {
+          console.log(error);
+        }
       });
     },
 

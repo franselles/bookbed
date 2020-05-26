@@ -2,6 +2,49 @@
 
 const Carts = require('../models/carts_model');
 
+function postCartFinal(req, res) {
+  try {
+    const data = new Carts();
+
+    data.date = req.body.date;
+    data.userID = req.body.userID;
+    data.phone = req.body.phone;
+    data.ticketID = req.body.ticketID;
+    data.canceled = req.body.canceled;
+    data.detail = req.body.detail;
+
+    data.save(err => {
+      if (err)
+        res.status(500).send({
+          message: `Error al salvar en la base de datos: ${err} `,
+        });
+
+      res.status(200).send(data);
+    });
+  } catch (error) {
+    return res.status(404).send(error);
+  }
+}
+
+function deleteCartFinal(req, res) {
+  const id = req.query.id;
+
+  Carts.deleteOne({
+    _id: id,
+  }).exec((err, doc) => {
+    if (err)
+      return res.status(500).send({
+        message: `Error al realizar la petición: ${err}`,
+      });
+    if (!doc)
+      return res.status(404).send({
+        message: 'No existe',
+      });
+
+    res.status(200).send(doc);
+  });
+}
+
 function postCart(req, res) {
   const cart = req.body;
 
@@ -26,7 +69,7 @@ function postCart(req, res) {
             message: `Error al salvar en la base de datos: ${err} `,
           });
 
-        res.status(200).send(true);
+        res.status(200).send(data);
       });
     });
   } catch (error) {
@@ -189,4 +232,6 @@ module.exports = {
   getCarts,
   getTicketNumber,
   getCartsDetail,
+  postCartFinal,
+  deleteCartFinal,
 };

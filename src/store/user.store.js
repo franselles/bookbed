@@ -103,6 +103,36 @@ export default {
       }
     },
 
+    async deleteCartFinal(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'delete',
+          url: 'cart',
+          params: {
+            id: payload._id,
+          },
+        });
+
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
+
+    async postCartFinal(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'post',
+          url: '/cartfinal',
+          data: payload,
+        });
+
+        return data.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async postCart(context, payload) {
       try {
         const data = await Vue.axios({
@@ -265,6 +295,20 @@ export default {
         return false;
       } catch (error) {
         return false;
+      }
+    },
+
+    async postStripeIntent(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'post',
+          url: 'secret',
+          data: payload,
+        });
+
+        return data;
+      } catch (error) {
+        return error;
       }
     },
   },
