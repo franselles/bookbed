@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-centered is-vcentered is-mobile">
-    <div class="column is-6 has-text-centered">
+    <div class="column has-text-centered">
       <article class="message is-info">
         <div class="message-header">
           <p>PROCESO DE PAGO</p>
@@ -44,12 +44,13 @@
           COMPRA REALIZADA CORRECTAMENTE
         </div>
       </article>
+
       <form @submit.prevent="submit($event)">
         <div class="stripe-form-input">
           <div ref="stripe"></div>
         </div>
         <br />
-        <button class="button" type="submit">PAGAR</button>
+        <button class="button" type="submit" :disabled="pressed">PAGAR</button>
       </form>
     </div>
   </div>
@@ -78,6 +79,7 @@ export default {
       detail: [],
     },
     detailDuplicated: [],
+    pressed: false,
   }),
 
   async mounted() {
@@ -90,7 +92,23 @@ export default {
 
     let elements = this.stripe.elements();
 
-    this._card = elements.create('card');
+    const style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    };
+
+    this._card = elements.create('card', { style: style });
     this._card.mount(this.$refs.stripe);
 
     this.secret = await this.postStripeIntent({ cart: this.cart }).then(res => {
@@ -108,6 +126,7 @@ export default {
 
     async submit(ev) {
       ev.preventDefault();
+      this.pressed = true;
 
       try {
         const result = await this.postCart(this.cartLocal);
