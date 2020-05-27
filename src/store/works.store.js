@@ -15,12 +15,21 @@ export default {
     typeIDActual: 9,
   },
   mutations: {
+    /**
+     * Setea los items del sector actual - current
+     * @param {Array} payload - Objects de Items col, row,...
+     */
     setStateSector(state, payload) {
       state.stateSector = payload;
     },
+    /** Reset items del sector actual */
     resetStateSector(state) {
       state.stateSector = [];
     },
+    /**
+     * Setea los sectores de una play
+     * @param {Array} payload - Objects de los sectores cols, rows, beach,...
+     */
     setSectors(state, payload) {
       state.sectors = payload;
     },

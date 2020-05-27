@@ -12,7 +12,7 @@ export default {
   mutations: {
     /**
      * Mutation datos del email usuario que introduce el
-     * @param {string} payload string con el email
+     * @param {string} payload - string con el email
      */
     setEmail(state, payload) {
       state.email = payload;
@@ -27,7 +27,7 @@ export default {
     },
     /**
      * Mutation datos del usuario
-     * @param {Object} payload Objeto con datos user (userID, phone, name, ...)
+     * @param {Object} payload - Objeto con datos user (userID, phone, name, ...)
      */
     setUser(state, payload) {
       state.user = payload;
@@ -37,7 +37,7 @@ export default {
     },
     /**
      * Mutation datos del carrito (reserva)
-     * @param {Object} payload Objeto con datos ticket(userID, date) y detail (sectorID, col, row, ...)
+     * @param {Object} payload - Objeto con datos ticket(userID, date) y detail (sectorID, col, row, ...)
      */
     setCart(state, payload) {
       state.cart = payload;
@@ -47,7 +47,7 @@ export default {
     },
     /**
      * Mutation datos de los carritos del usuario
-     * @param {Array} payload Array de objetos de carritos tickets incluido detail
+     * @param {Array} payload - Array de objetos de carritos tickets incluido detail
      */
     setCarts(state, payload) {
       state.carts = payload;
@@ -59,7 +59,7 @@ export default {
   actions: {
     /**
      * Obtiene todos los carts (reservas) de un usuario
-     * @param {Object} payload
+     * @param {Object} payload - UserID
      */
     async getCarts({ commit }, payload) {
       try {
@@ -83,7 +83,7 @@ export default {
     /**
      * Obtiene detalle de las reservas de un usuario
      * desde una fecha para QR. Dia actual
-     * @param {Object} payload userID y date
+     * @param {Object} payload - userID y date
      */
     async getCartsDetail(context, payload) {
       try {
@@ -103,6 +103,11 @@ export default {
       }
     },
 
+    /**
+     * Borra carrito pasado a server si hay error en tarjeta
+     * @param {*} context
+     * @param {Object} payload - _id del carrito
+     */
     async deleteCartFinal(context, payload) {
       try {
         const data = await Vue.axios({
@@ -119,6 +124,11 @@ export default {
       }
     },
 
+    /**
+     * Post carrito sin comprobar duplicados
+     * @param {*} context
+     * @param {Object} payload - Se para el carrito con detail
+     */
     async postCartFinal(context, payload) {
       try {
         const data = await Vue.axios({
@@ -133,6 +143,11 @@ export default {
       }
     },
 
+    /**
+     * Post del carrito con comprobación previa de duplicados
+     * @param {*} context
+     * @param {Object} payload - Se pasa el carrito con detail
+     */
     async postCart(context, payload) {
       try {
         const data = await Vue.axios({
@@ -147,6 +162,11 @@ export default {
       }
     },
 
+    /**
+     * Comprobación de duplicados sin post
+     * @param {*} context
+     * @param {Object} payload - Se pasa el Array del detail del carrito
+     */
     async checkCart(context, payload) {
       try {
         const data = await Vue.axios({
@@ -161,6 +181,12 @@ export default {
       }
     },
 
+    /**
+     * Se obtiene el user
+     * @param {*} commit
+     * @param {*} dispatch
+     * @param {Object} payload - Email y password del user
+     */
     async getUser({ commit, dispatch }, payload) {
       try {
         const data = await Vue.axios({
@@ -185,6 +211,11 @@ export default {
       }
     },
 
+    /**
+     * Se crea user
+     * @param {*} commit
+     * @param {Object} payload - name, email, password, etc..
+     */
     async postUser({ commit }, payload) {
       try {
         const data = await Vue.axios({
@@ -206,6 +237,11 @@ export default {
       }
     },
 
+    /**
+     * Comprueba la existencia del email, si está disponible
+     * @param {*} context
+     * @param {Object} payload - email del usuario
+     */
     async checkEmail(context, payload) {
       try {
         const data = await Vue.axios({
@@ -222,6 +258,11 @@ export default {
       }
     },
 
+    /**
+     * En reuperar password comprueba la exitencia del token de recuperacion en user
+     * @param {*} context
+     * @param {Object} payload - Token para buscar si está almacenado en user
+     */
     async checkTokenPass(context, payload) {
       try {
         const data = await Vue.axios({
@@ -238,6 +279,11 @@ export default {
       }
     },
 
+    /**
+     * Comprueba que exite el email / usuario para recuperar contraseña
+     * @param {*} context
+     * @param {Object} payload - email
+     */
     async checkEmailRecovery(context, payload) {
       try {
         const data = await Vue.axios({
@@ -252,6 +298,11 @@ export default {
       }
     },
 
+    /**
+     * Post de las nueva contraseña - recuperación
+     * @param {*} context
+     * @param {Object} payload - Se pasa password
+     */
     async updatePassword(context, payload) {
       try {
         const data = await Vue.axios({
@@ -266,6 +317,11 @@ export default {
       }
     },
 
+    /**
+     * Se obtiene siguiente nímero de ticket - count carts
+     * @param {*} context
+     * @param {Object} payload - date
+     */
     async getTicketNumber(context, payload) {
       try {
         const data = await Vue.axios({
@@ -282,6 +338,9 @@ export default {
       }
     },
 
+    /**
+     * Handle para comprobar si el server está UP
+     */
     async checkServer() {
       try {
         const data = await Vue.axios({
@@ -298,6 +357,11 @@ export default {
       }
     },
 
+    /**
+     * Post para obtener token intent de pago en Stripe
+     * @param {*} context
+     * @param {Object} payload - Se le pasa cart, en server se calcula amount (importe)
+     */
     async postStripeIntent(context, payload) {
       try {
         const data = await Vue.axios({

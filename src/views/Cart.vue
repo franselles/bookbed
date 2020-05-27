@@ -145,12 +145,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('userStore', [
-      'postCart',
-      'checkCart',
-      'getTicketNumber',
-      'checkCart',
-    ]),
+    ...mapActions('userStore', ['checkCart', 'getTicketNumber']),
     ...mapMutations('userStore', ['setCart', 'resetCart']),
 
     cancel() {
