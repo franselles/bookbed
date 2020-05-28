@@ -74,9 +74,16 @@
                     >
                     </b-button>
                     <b-button
-                      v-else
+                      v-else-if="cell.empty == 0 && cell.typeID == 9"
                       size="is-small"
                       type="is-success"
+                      @click="pushed(cell)"
+                      >{{ cell.numberItem }}</b-button
+                    >
+                    <b-button
+                      v-else
+                      size="is-small"
+                      type="is-warning"
                       @click="pushed(cell)"
                       >{{ cell.numberItem }}</b-button
                     >
@@ -207,7 +214,7 @@ export default {
         beachID: this.beachActual.beachID,
         sectorID: this.sectorActual.sectorID,
         date: this.date,
-        typeID: this.typeIDActual,
+        // typeID: this.typeIDActual,
       }).then(() => {
         let line = [];
         for (let c = 0; c < this.stateSector.length; c++) {
@@ -227,7 +234,12 @@ export default {
           let col = this.cartLocal.detail[i].col;
           let row = this.cartLocal.detail[i].row;
 
-          if (this.cartLocal.detail[i].date == this.dateActual) {
+          if (
+            this.cartLocal.detail[i].date == this.dateActual &&
+            this.cartLocal.detail[i].cityID == this.cityActual.cityID &&
+            this.cartLocal.detail[i].beachID == this.beachActual.beachID &&
+            this.cartLocal.detail[i].sectorID == this.sectorActual.sectorID
+          ) {
             this.statusSector[col - 1][row - 1].filled = 2;
           }
         }

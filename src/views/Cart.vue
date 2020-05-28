@@ -145,7 +145,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('userStore', ['checkCart', 'getTicketNumber']),
+    ...mapActions('userStore', ['checkCart', 'getTicketNumber', 'postCart']),
     ...mapMutations('userStore', ['setCart', 'resetCart']),
 
     cancel() {
@@ -180,7 +180,19 @@ export default {
               this.calcTotal();
               return;
             }
-            this.$router.push({ name: 'stripepay' });
+
+            if (this.total == 0) {
+              this.postCart(this.cartLocal).then(result => {
+                if (result._id) {
+                  setTimeout(() => {
+                    this.resetCart();
+                    this.$router.replace({ name: 'citybeaches' });
+                  }, 2000);
+                }
+              });
+            } else {
+              this.$router.push({ name: 'stripepay' });
+            }
           });
         } catch (error) {
           console.log(error);

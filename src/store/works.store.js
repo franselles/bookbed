@@ -12,7 +12,7 @@ export default {
     beachActual: null,
     sectorActual: null,
     sectorIDActual: 1,
-    typeIDActual: 9,
+    typeIDActual: null,
   },
   mutations: {
     /**
