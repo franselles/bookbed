@@ -76,14 +76,14 @@
                     <b-button
                       v-else-if="cell.empty == 0 && cell.typeID == 9"
                       size="is-small"
-                      type="is-success"
+                      type="is-info"
                       @click="pushed(cell)"
                       >{{ cell.numberItem }}</b-button
                     >
                     <b-button
                       v-else
                       size="is-small"
-                      type="is-warning"
+                      type="is-success"
                       @click="pushed(cell)"
                       >{{ cell.numberItem }}</b-button
                     >

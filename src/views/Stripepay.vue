@@ -44,14 +44,17 @@
           COMPRA REALIZADA CORRECTAMENTE
         </div>
       </article>
-
-      <form @submit.prevent="submit($event)">
-        <div class="stripe-form-input">
-          <div ref="stripe"></div>
-        </div>
-        <br />
-        <button class="button" type="submit" :disabled="pressed">PAGAR</button>
-      </form>
+      <div class="box has-background-white-bis">
+        <form @submit.prevent="submit($event)">
+          <div class="stripe-form-input">
+            <div ref="stripe"></div>
+          </div>
+          <br />
+          <button class="button" type="submit" :disabled="pressed">
+            PAGAR
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
