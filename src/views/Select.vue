@@ -17,18 +17,18 @@
       </div>
     </article>
 
-    <article class="message is-warning">
+    <article class="message is-success">
       <div class="message-body">
-        <b-button type="is-warning" @click="booked" expanded
-          >VER RESERVA DEL DIA</b-button
+        <b-button type="is-success" @click="booked" expanded
+          >VER TICKETS DEL DIA</b-button
         >
       </div>
     </article>
 
-    <article class="message is-primary">
+    <article class="message is-warning">
       <div class="message-body">
-        <b-button type="is-primary" @click="shopped" expanded
-          >VER COMPRAS REALIZADAS</b-button
+        <b-button type="is-warning" @click="shopped" expanded
+          >VER HISTORIAL COMPRAS REALIZADAS</b-button
         >
       </div>
     </article>

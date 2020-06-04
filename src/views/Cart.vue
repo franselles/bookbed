@@ -191,7 +191,7 @@ export default {
                 }
               });
             } else {
-              this.$router.push({ name: 'stripepay' });
+              this.$router.replace({ name: 'stripepay' });
             }
           });
         } catch (error) {
