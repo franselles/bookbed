@@ -38,6 +38,7 @@
       </div>
     </article>
 
+    <b-field>{{ sectorActual.sector }} SELECCIONE ZONA </b-field>
     <b-field>
       <b-icon icon="arrow-bottom-left-thick"></b-icon>PRIMERA LINEA DE PLAYA
     </b-field>

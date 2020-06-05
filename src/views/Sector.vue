@@ -39,6 +39,13 @@
     </article>
 
     <b-field>
+      <a href="#" @click="back" class="button">
+        <b-icon icon="arrow-left-thick"></b-icon>
+        <span>VOLVER SELECCIONAR ZONA</span></a
+      >
+    </b-field>
+
+    <b-field>
       <b-icon icon="arrow-bottom-left-thick"></b-icon>PRIMERA LINEA DE PLAYA
     </b-field>
 
