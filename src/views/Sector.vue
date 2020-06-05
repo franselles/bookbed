@@ -158,6 +158,7 @@ export default {
   data() {
     return {
       statusSector: [],
+      tempoSector: [],
       date: null,
       enableButtonCart: true,
       cartLocal: {
@@ -220,12 +221,28 @@ export default {
         for (let c = 0; c < this.stateSector.length; c++) {
           line.push(this.stateSector[c]);
           if ((c + 1) % rows == 0) {
-            this.statusSector.push(line);
+            this.tempoSector.push(line);
             line = [];
           }
         }
-        this.updateState();
+
+        this.renderGroup();
+        // this.updateState();
       });
+    },
+
+    renderGroup() {
+      const cn = this.group.col;
+      const rn = this.group.row;
+
+      for (let c = cn * 10; c < cn * 10 + this.group.numberCols; c++) {
+        let line = [];
+        for (let r = rn * 5; r < rn * 5 + this.group.numberRows; r++) {
+          line.push(this.tempoSector[c][r]);
+        }
+        this.statusSector.push(line);
+      }
+      this.updateState();
     },
 
     updateState() {
@@ -240,7 +257,7 @@ export default {
             this.cartLocal.detail[i].beachID == this.beachActual.beachID &&
             this.cartLocal.detail[i].sectorID == this.sectorActual.sectorID
           ) {
-            this.statusSector[col - 1][row - 1].filled = 2;
+            this.tempoSector[col - 1][row - 1].filled = 2;
           }
         }
       }
@@ -282,7 +299,7 @@ export default {
 
     pushed(e) {
       if (e.filled == 2) {
-        this.statusSector[e.col - 1][e.row - 1].filled = 0;
+        this.tempoSector[e.col - 1][e.row - 1].filled = 0;
 
         for (let i = this.cartLocal.detail.length - 1; i >= 0; i--) {
           if (
@@ -293,7 +310,7 @@ export default {
           }
         }
       } else {
-        this.statusSector[e.col - 1][e.row - 1].filled = 2;
+        this.tempoSector[e.col - 1][e.row - 1].filled = 2;
 
         if (this.cartLocal.date == null) {
           this.cartLocal.date = dayjs(new Date()).format('YYYY-MM-DD');
@@ -347,6 +364,7 @@ export default {
 
       this.setEnableButtonCart();
       this.calcStatusCart();
+      this.setCart(this.cartLocal);
     },
 
     addDay(n) {
@@ -416,6 +434,7 @@ export default {
       'typeIDActual',
       'sectorActual',
       'stateSector',
+      'group',
     ]),
 
     dateFormated: function () {

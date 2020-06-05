@@ -183,7 +183,7 @@ export default {
       this.setBeachActual(this.beachLocal);
       this.setSectorActual(this.sectorLocal);
 
-      this.$router.push({ name: 'sector' });
+      this.$router.push({ name: 'groupsector' });
     },
 
     back() {
