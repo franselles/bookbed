@@ -1,11 +1,11 @@
 <template>
   <div>
-    <article class="message is-info">
-      <div class="message-body">
-        <p>PLAYASBENIDORM 2020</p>
-      </div>
-    </article>
-    <br />
+    <div class="has-text-centered">
+      <p>PLAYASBENIDORM.APP</p>
+
+      <img src="@/assets/logo.png" alt="rabenidorm" />
+    </div>
+
     <form @submit.prevent="login">
       <b-field label="CORREO ELECTRÓNICO">
         <b-input type="email" maxlength="30" v-model="email" required>
@@ -43,7 +43,7 @@
       <div class="control">
         <b-taglist attached>
           <b-tag type="is-dark">version</b-tag>
-          <b-tag type="is-info">0.3.8</b-tag>
+          <b-tag type="is-info">0.3.9</b-tag>
         </b-taglist>
       </div>
     </form>
