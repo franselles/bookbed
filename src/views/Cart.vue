@@ -191,7 +191,7 @@ export default {
                 }
               });
             } else {
-              this.$router.replace({ name: 'stripepay' });
+              this.$router.replace({ name: 'redsys' });
             }
           });
         } catch (error) {

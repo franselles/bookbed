@@ -70,9 +70,9 @@ export default [
     meta: { requiresAuth: true },
   },
   {
-    path: '/stripepay',
-    name: 'stripepay',
-    component: () => import('@/views/Stripepay.vue'),
+    path: '/redsys',
+    name: 'redsys',
+    component: () => import('@/views/Redsys.vue'),
     meta: { requiresAuth: true },
   },
 ];
