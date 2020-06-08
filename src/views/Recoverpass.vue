@@ -51,7 +51,6 @@ export default {
       this.checkEmailRecovery({
         email: this.emailLocal,
       }).then(result => {
-        console.log(result);
         if (result.data == '') {
           this.error = true;
         } else {
