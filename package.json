@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,7 +9,6 @@
     "local": "nodemon server.js"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^1.7.0",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -22,9 +21,8 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.9.18",
     "qrcode.vue": "^1.7.0",
+    "redsys-pay": "^1.1.0",
     "register-service-worker": "^1.7.1",
-    "stripe": "^8.60.0",
-    "v-credit-card": "^1.2.4",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.3.2",

@@ -2,25 +2,6 @@
   <div>
     <div class="columns is-centered is-vcentered is-mobile">
       <div class="column has-text-centered">
-        <article class="message is-info">
-          <div class="message-header">
-            <p>PROCESO DE PAGO</p>
-          </div>
-          <div class="message-body">
-            <p>
-              INTRODUZCA NÚMERO DE TARJETA
-            </p>
-            <p>
-              FECHA DE CADUCIDAD
-            </p>
-            <p>
-              CÓDIGO CVV
-            </p>
-            <p>
-              CÓDIGO POSTAL
-            </p>
-          </div>
-        </article>
         <article class="message is-danger" v-if="errorMsg">
           <div class="message-header">
             <p>RESERVA DE HAMACAS</p>
@@ -45,9 +26,12 @@
             COMPRA REALIZADA CORRECTAMENTE
           </div>
         </article>
+        <p>EN CONSTRUCCION</p>
+        <p>FALTA AVISOS LEGALES</p>
+        <p>LOPD, etc...</p>
       </div>
     </div>
-    <VCreditCard :trans="translations" @change="creditInfoChanged" />
+
     <div class="columns is-centered is-vcentered is-mobile">
       <div class="column has-text-centered">
         <b-button type="is-success" @click="submit">COMPRAR</b-button>
@@ -58,33 +42,9 @@
 
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex';
-import VCreditCard from 'v-credit-card';
-import 'v-credit-card/dist/VCreditCard.css';
-
-const translations = {
-  name: {
-    label: 'Nombre',
-    placeholder: 'Nombre completo',
-  },
-  card: {
-    label: 'Número de tarjeta',
-    placeholder: 'Número de tarjeta',
-  },
-  expiration: {
-    label: 'Caducidad',
-  },
-  security: {
-    label: 'Código de seguridad',
-    placeholder: 'Código',
-  },
-};
 
 export default {
-  components: {
-    VCreditCard,
-  },
   data: () => ({
-    translations: translations,
     name: '',
     cardNumber: '',
     expiration: '',
