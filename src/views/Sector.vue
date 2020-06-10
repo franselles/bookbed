@@ -110,6 +110,7 @@
         NÚMERO DE ELEMENTOS:
         <strong>{{ statusCart.qty }} <br /> </strong> IMPORTE:
         <strong>{{ statusCart.import }} € </strong>
+        <h6 class="is-size-7">TODOS LOS PRECIOS CON EL I.V.A. INCLUIDO</h6>
       </div>
     </article>
 

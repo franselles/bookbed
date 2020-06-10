@@ -58,7 +58,7 @@ function sendEmail(params) {
       to: params.email,
       subject: 'Recuperación de contraseña - playasbenidorm 2020',
       html: `<html><head></head><body>Pulse el siguiente enlace para crear nuevas contraseñas
-      <a href="https://plotbed-tops-80256.herokuapp.com/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
+      <a href="https://playasbenidorm.app/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
       <p>Si tiene dudas o necesita información diríjase a app@playasbenidorm.es</p>
       </body></html>`,
     };
@@ -290,7 +290,7 @@ function postUserOld(req, res) {
 
       // Create TOKEN
       const token = jwt.sign(tokenData, process.env.KEY, {
-        expiresIn: 60 * 10, // expires in 60 minutes
+        expiresIn: 60 * 30, // expires in 60 minutes
       });
 
       return res.status(200).send({

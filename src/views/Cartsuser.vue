@@ -43,7 +43,9 @@
           TELEFONO:<span class="has-text-weight-bold"> {{ items.phone }}</span>
         </div>
       </b-field>
-
+      <b-field class="is-size-7">
+        SECTOR DE HAMACAS CON SOMBRILLAS ALQUILADO
+      </b-field>
       <b-field>
         <table class="table is-striped">
           <thead>
@@ -65,6 +67,9 @@
             </tr>
           </tbody>
         </table>
+      </b-field>
+      <b-field class="is-size-7">
+        TODOS LOS PRECIOS CON EL I.V.A. INCLUIDO
       </b-field>
       <div class="is-divider">---------------------------</div>
     </div>

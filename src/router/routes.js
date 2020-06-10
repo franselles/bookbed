@@ -70,9 +70,21 @@ export default [
     meta: { requiresAuth: true },
   },
   {
-    path: '/redsys',
-    name: 'redsys',
-    component: () => import('@/views/Redsys.vue'),
+    path: '/lopd',
+    name: 'lopd',
+    component: () => import('@/views/Lopd.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/legal',
+    name: 'legal',
+    component: () => import('@/views/Legal.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/sabadell',
+    name: 'sabadell',
+    component: () => import('@/views/Sabadell.vue'),
     meta: { requiresAuth: true },
   },
 ];

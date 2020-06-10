@@ -19,7 +19,7 @@
     </b-field>
     <b-field>
       <div>
-        FECHA TICKET:
+        FECHA
         <span class="has-text-weight-bold"
           >{{ formatDate(cartLocal.date) }}
         </span>
@@ -27,13 +27,7 @@
     </b-field>
     <b-field>
       <div>
-        TICKET:
-        <span class="has-text-weight-bold">{{ cartLocal.ticketID }} </span>
-      </div>
-    </b-field>
-    <b-field>
-      <div>
-        USUARIO:<span class="has-text-weight-bold">
+        USUARIO (ID):<span class="has-text-weight-bold">
           {{ cartLocal.userID }}</span
         >
       </div>
@@ -46,6 +40,9 @@
       </div>
     </b-field>
 
+    <b-field class="is-size-7">
+      SECTOR DE HAMACAS CON SOMBRILLAS RESERVADO
+    </b-field>
     <b-field>
       <table class="table is-striped">
         <thead>
@@ -72,6 +69,14 @@
         </tbody>
       </table>
     </b-field>
+    <b-field class="is-size-7">
+      TODOS LOS PRECIOS CON EL I.V.A. INCLUIDO
+    </b-field>
+    <b-field>
+      <b-checkbox v-model="acepted">
+        <router-link to="/legal">Aceptar la condiciones de venta</router-link>
+      </b-checkbox>
+    </b-field>
     <b-field>
       <div>
         IMPORTE TOTAL:<span class="has-text-weight-bold"> {{ total }} €</span>
@@ -84,9 +89,12 @@
         type="is-success"
         @click="check"
         :disabled="!purchased"
-        >COMPRAR</b-button
+        >ALQUILAR</b-button
       >
       <b-button type="is-danger" @click="cancel">CANCELAR</b-button>
+    </div>
+    <div class="buttons">
+      <b-button type="is-info" @click="lopd">POLÍTICA DE PRIVACIDAD</b-button>
     </div>
     <article class="message is-danger" v-if="detailDuplicated.length > 0">
       <div class="message-header">
@@ -136,6 +144,7 @@ export default {
       },
       total: 0,
       detailDuplicated: [],
+      acepted: false,
     };
   },
 
@@ -181,18 +190,14 @@ export default {
               return;
             }
 
-            if (this.total == 0) {
-              this.postCart(this.cartLocal).then(result => {
-                if (result._id) {
-                  setTimeout(() => {
-                    this.resetCart();
-                    this.$router.replace({ name: 'citybeaches' });
-                  }, 2000);
-                }
-              });
-            } else {
-              this.$router.replace({ name: 'redsys' });
-            }
+            this.postCart(this.cartLocal).then(result => {
+              if (result._id) {
+                setTimeout(() => {
+                  this.resetCart();
+                  this.$router.replace({ name: 'sabadell' });
+                }, 2000);
+              }
+            });
           });
         } catch (error) {
           console.log(error);
@@ -222,13 +227,17 @@ export default {
     back() {
       this.$router.go(-1);
     },
+
+    lopd() {
+      this.$router.push({ name: 'lopd' });
+    },
   },
 
   computed: {
     ...mapState('userStore', ['cart', 'user']),
 
     purchased: function () {
-      return this.cartLocal.detail.length > 0;
+      return this.cartLocal.detail.length > 0 && this.acepted;
     },
   },
 };
