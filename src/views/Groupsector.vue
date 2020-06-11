@@ -39,6 +39,7 @@
     </article>
 
     <b-field>{{ sectorActual.sector }} SELECCIONE ZONA </b-field>
+    <b-field>ELEMENTOS DISPONIBLES</b-field>
     <b-field>
       <b-icon icon="arrow-bottom-left-thick"></b-icon>PRIMERA LINEA DE PLAYA
     </b-field>
@@ -54,10 +55,20 @@
                 <td v-for="cell in line" :key="cell.index">
                   <div class="cell">
                     <b-button
+                      v-if="cell.numberItems > 0"
                       size="is-small"
                       type="is-warning"
                       @click="pushed(cell)"
-                      >{{ cell.row }}-{{ cell.col }}</b-button
+                      >{{ cell.numberItems }}</b-button
+                    >
+                    <b-button
+                      v-show="cell.empty"
+                      v-else
+                      size="is-small"
+                      type="is-danger"
+                      @click="pushed(cell)"
+                      disabled
+                      >{{ cell.numberItems }}</b-button
                     >
                   </div>
                 </td>
@@ -179,10 +190,48 @@ export default {
             cityID: this.cityActual.cityID,
             beachID: this.beachActual.beachID,
             sectorID: this.sectorActual.sectorID,
+            numberItems: 0,
+            empty: false,
           });
         }
         this.groupLocal.push(line);
       }
+      this.groupState();
+    },
+
+    groupState() {
+      for (let groupC = 0; groupC < this.groupLocal.length; groupC++) {
+        for (
+          let groupR = 0;
+          groupR < this.groupLocal[groupC].length;
+          groupR++
+        ) {
+          // console.log(groupC, groupR);
+          let numberCols = this.groupLocal[groupC][groupR].numberCols;
+          let numberRows = this.groupLocal[groupC][groupR].numberRows;
+
+          let numberItemsAv = 0;
+          let empty = false;
+          for (let c = groupC * 10; c < groupC * 10 + numberCols; c++) {
+            for (let r = groupR * 5; r < groupR * 5 + numberRows; r++) {
+              if (
+                this.statusSector[c][r].filled == 0 &&
+                this.statusSector[c][r].empty != 1
+              ) {
+                numberItemsAv++;
+              }
+              if (this.statusSector[c][r].empty == 0) {
+                empty = true;
+              }
+            }
+          }
+
+          this.groupLocal[groupC][groupR].empty = empty;
+          this.groupLocal[groupC][groupR].numberItems = numberItemsAv;
+        }
+      }
+
+      // console.log(this.groupLocal);
     },
 
     updateState() {

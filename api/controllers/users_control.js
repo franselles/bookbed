@@ -162,7 +162,8 @@ function postUser(req, res) {
   data.date = date.toISOString().split('T')[0];
   data.banned = false;
   data.bannedDate = null;
-  data.userID = req.body.phone.slice(-4) + generateUUID('xxyx');
+  // data.userID = req.body.phone.slice(-4) + generateUUID('xxyx');
+  data.userID = req.body.phone;
   data.auxID = req.body.auxID;
   data.tokenRecovery = null;
 
@@ -185,7 +186,7 @@ function postUser(req, res) {
 
         // Create TOKEN
         const token = jwt.sign(tokenData, process.env.KEY, {
-          expiresIn: 60 * 10, // expires in 60 minutes
+          expiresIn: 60 * 60, // expires in 60 minutes
         });
 
         return res.status(200).send({
@@ -234,7 +235,7 @@ function getUser(req, res) {
 
           // Create TOKEN
           const token = jwt.sign(tokenData, process.env.KEY, {
-            expiresIn: 60 * 10, // expires in 60 minutes
+            expiresIn: 60 * 60, // expires in 60 minutes
           });
 
           return res.status(200).send({

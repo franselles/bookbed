@@ -85,14 +85,14 @@
                       size="is-small"
                       type="is-success"
                       @click="pushed(cell)"
-                      >{{ cell.numberItem }}</b-button
+                      >{{ cell.col }} - {{ cell.row }}</b-button
                     >
                     <b-button
                       v-else
                       size="is-small"
                       type="is-warning"
                       @click="pushed(cell)"
-                      >{{ cell.numberItem }}</b-button
+                      >{{ cell.col }} - {{ cell.row }}</b-button
                     >
                   </div>
                 </td>
@@ -126,7 +126,7 @@
               <th class="is-size-7">#</th>
               <th class="is-size-7">FECHA</th>
               <th class="is-size-7">SECT</th>
-              <th class="is-size-7">NÚMERO</th>
+              <th class="is-size-7">C/F</th>
               <th class="is-size-7">PRECIO</th>
             </tr>
           </thead>
@@ -135,7 +135,7 @@
               <td class="is-size-7">{{ index + 1 }}</td>
               <td class="is-size-7">{{ formatDate(item.date) }}</td>
               <td class="is-size-7">{{ item.sectorID }}</td>
-              <td class="is-size-7">{{ item.numberItem }}</td>
+              <td class="is-size-7">{{ item.col }}-{{ item.row }}</td>
               <td class="is-size-7">{{ item.price }} €</td>
             </tr>
           </tbody>

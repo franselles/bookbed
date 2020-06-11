@@ -8,8 +8,17 @@ export default {
     carts: [],
     user: null,
     email: null,
+    sabadell: {
+      Ds_SignatureVersion: '',
+      Ds_MerchantParameters: '',
+      Ds_Signature: '',
+    },
   },
   mutations: {
+    setSabadell(state, payload) {
+      state.sabadell = payload;
+    },
+
     /**
      * Mutation datos del email usuario que introduce el
      * @param {string} payload - string con el email
@@ -322,14 +331,14 @@ export default {
      * @param {*} context
      * @param {Object} payload - date
      */
-    async getTicketNumber(context, payload) {
+    async getTicketNumber() {
       try {
         const data = await Vue.axios({
           method: 'get',
           url: 'tickets',
-          params: {
-            date: payload.date,
-          },
+          // params: {
+          //   date: payload.date,
+          // },
         });
 
         return data.data[0].tickets + 1 || 1;
@@ -375,6 +384,36 @@ export default {
         return error;
       }
     },
+
+    async postRedsysSecret(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'post',
+          url: 'secret',
+          data: payload,
+        });
+
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
+
+    async postSabadell(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'post',
+          baseURL: 'https://sis-t.redsys.es:25443',
+          url: '/sis/realizarPago',
+          data: payload,
+        });
+
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
   },
+
   getters: {},
 };

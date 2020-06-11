@@ -55,6 +55,9 @@ export default {
           this.error = true;
         } else {
           this.correct = true;
+          setTimeout(() => {
+            this.$router.replace({ name: 'login' });
+          }, 5000);
         }
       });
     },

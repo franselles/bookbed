@@ -53,7 +53,7 @@
               <th class="is-size-7">#</th>
               <th class="is-size-7">RESERVA</th>
               <th class="is-size-7">SECTOR</th>
-              <th class="is-size-7">NÚMERO</th>
+              <th class="is-size-7">C/F</th>
               <th class="is-size-7">PRECIO</th>
             </tr>
           </thead>
@@ -62,7 +62,7 @@
               <td class="is-size-7">{{ index + 1 }}</td>
               <td class="is-size-7">{{ formatDate(item.date) }}</td>
               <td class="is-size-7">{{ item.sectorID }}</td>
-              <td class="is-size-7">{{ item.numberItem }}</td>
+              <td class="is-size-7">{{ item.col }}-{{ item.row }}</td>
               <td class="is-size-7">{{ item.price }} €</td>
             </tr>
           </tbody>

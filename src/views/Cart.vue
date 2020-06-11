@@ -41,7 +41,7 @@
     </b-field>
 
     <b-field class="is-size-7">
-      SECTOR DE HAMACAS CON SOMBRILLAS RESERVADO
+      SECTOR DE HAMACAS CON SOMBRILLA RESERVADO
     </b-field>
     <b-field>
       <table class="table is-striped">
@@ -50,7 +50,7 @@
             <th class="is-size-7">#</th>
             <th class="is-size-7">FECHA</th>
             <th class="is-size-7">SECT</th>
-            <th class="is-size-7">NÚMERO</th>
+            <th class="is-size-7">C/F</th>
             <th class="is-size-7">PRECIO</th>
             <th class="is-size-7"></th>
           </tr>
@@ -60,7 +60,7 @@
             <td class="is-size-7">{{ index + 1 }}</td>
             <td class="is-size-7">{{ formatDate(item.date) }}</td>
             <td class="is-size-7">{{ item.sectorID }}</td>
-            <td class="is-size-7">{{ item.numberItem }}</td>
+            <td class="is-size-7">{{ item.col }}-{{ item.row }}</td>
             <td class="is-size-7">{{ item.price }} €</td>
             <td class="is-size-7" @click="removeItem(index)">
               <b-button type="is-danger" icon-right="delete" size="is-small" />
@@ -108,7 +108,7 @@
               <th class="is-size-7">#</th>
               <th class="is-size-7">FECHA</th>
               <th class="is-size-7">SECT</th>
-              <th class="is-size-7">NÚMERO</th>
+              <th class="is-size-7">C/F</th>
               <th class="is-size-7">PRECIO</th>
             </tr>
           </thead>
@@ -117,7 +117,7 @@
               <td class="is-size-7">{{ index + 1 }}</td>
               <td class="is-size-7">{{ formatDate(item.date) }}</td>
               <td class="is-size-7">{{ item.sectorID }}</td>
-              <td class="is-size-7">{{ item.numberItem }}</td>
+              <td class="is-size-7">{{ item.col }}-{{ item.row }}</td>
               <td class="is-size-7">{{ item.price }} €</td>
             </tr>
           </tbody>
@@ -154,18 +154,27 @@ export default {
   },
 
   methods: {
-    ...mapActions('userStore', ['checkCart', 'getTicketNumber', 'postCart']),
-    ...mapMutations('userStore', ['setCart', 'resetCart']),
+    ...mapActions('userStore', [
+      'checkCart',
+      'getTicketNumber',
+      'postCart',
+      'postRedsysSecret',
+      'postSabadell',
+    ]),
+    ...mapMutations('userStore', ['setCart', 'resetCart', 'setSabadell']),
 
     cancel() {
       this.$router.replace({ name: 'sector' });
     },
 
     check() {
-      this.getTicketNumber({ date: this.cartLocal.date }).then(result => {
-        this.cartLocal.ticketID = (
-          this.cartLocal.date + ('00000' + result).slice(-5)
-        ).replace(/-/g, '');
+      // this.getTicketNumber({ date: this.cartLocal.date }).then(result => {
+      this.getTicketNumber().then(result => {
+        // this.cartLocal.ticketID = (
+        //   this.cartLocal.date + ('00000' + result).slice(-5)
+        // ).replace(/-/g, '');
+        this.cartLocal.ticketID = ('00000000' + result).slice(-8);
+
         this.detailDuplicated = [];
         try {
           this.checkCart({ cart: this.cartLocal.detail }).then(result => {
@@ -189,6 +198,12 @@ export default {
               this.calcTotal();
               return;
             }
+
+            // this.postRedsysSecret({ cart: this.cartLocal }).then(result => {
+            //   // console.log(result);
+            //   this.setSabadell(result.data);
+            //   this.$router.replace({ name: 'sabadell' });
+            // });
 
             this.postCart(this.cartLocal).then(result => {
               if (result._id) {
