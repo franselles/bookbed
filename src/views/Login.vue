@@ -43,10 +43,27 @@
       <div class="control">
         <b-taglist attached>
           <b-tag type="is-dark">version</b-tag>
-          <b-tag type="is-info">0.3.14</b-tag>
+          <b-tag type="is-info">0.3.15</b-tag>
         </b-taglist>
       </div>
     </form>
+
+    <article class="message is-info">
+      <div class="message-body">
+        <p class="is-size-7">
+          PARA UNA MEJOR EXPERIENCIA
+        </p>
+        <p class="is-size-7">
+          EN ANDROID Y IPHONE AÑADIR
+        </p>
+        <p class="is-size-7">
+          A LA PÁGINA DE INICIO
+        </p>
+        <p class="is-size-7">
+          EN LAS OPCIONES DEL NAVEGADOR
+        </p>
+      </div>
+    </article>
 
     <article class="message is-danger" v-if="offline">
       <div class="message-body">

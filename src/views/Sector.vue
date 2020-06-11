@@ -85,14 +85,14 @@
                       size="is-small"
                       type="is-success"
                       @click="pushed(cell)"
-                      >{{ cell.col }} - {{ cell.row }}</b-button
+                      >{{ cell.col }}-{{ cell.row }}</b-button
                     >
                     <b-button
                       v-else
                       size="is-small"
                       type="is-warning"
                       @click="pushed(cell)"
-                      >{{ cell.col }} - {{ cell.row }}</b-button
+                      >{{ cell.col }}-{{ cell.row }}</b-button
                     >
                   </div>
                 </td>
