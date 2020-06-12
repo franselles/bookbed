@@ -42,6 +42,24 @@
         ></b-input>
       </b-field>
 
+      <b-field label="REPETIR TELEFONO MOVIL">
+        <b-input
+          type="number"
+          min="0"
+          placeholder="123456789"
+          oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+          maxlength="9"
+          v-model="phone2"
+          required
+        ></b-input>
+      </b-field>
+
+      <article class="message is-danger" v-if="!checkPhone">
+        <div class="message-body">
+          EL TELEFONO NO COINCIDE.
+        </div>
+      </article>
+
       <b-field label="CONTRASEÑA">
         <b-input type="password" v-model="password" password-reveal required>
         </b-input>
@@ -78,11 +96,12 @@ export default {
     return {
       name: null,
       email: null,
-      phone: null,
+      phone: '',
       password: null,
       password2: null,
       emailWrong: false,
       disabledButton: false,
+      phone2: '',
     };
   },
   methods: {
@@ -95,6 +114,7 @@ export default {
 
     logup() {
       if (!this.checkPassword) return;
+      if (!this.checkPhone) return;
 
       this.disabledButton = true;
 
@@ -139,6 +159,10 @@ export default {
 
     checkPassword: function () {
       return this.password == this.password2;
+    },
+
+    checkPhone: function () {
+      return this.phone == this.phone2;
     },
   },
 };
