@@ -22,7 +22,9 @@ const redsysControl = require('../controllers/redsys_control.js');
 // api.post('/secret', stripeControl.paymentIntent);
 
 // Redsys
-api.post('/secret', redsysControl.paymentIntent);
+// api.post('/secret', redsysControl.paymentIntent);
+api.get('/pruebapug', redsysControl.pruebapug);
+api.get('/uncomplete/:id', redsysControl.errorDevuelto);
 
 // Cities
 api.get('/cities', citiesControl.getCities);

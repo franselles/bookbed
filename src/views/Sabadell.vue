@@ -24,6 +24,7 @@
     </p>
 
     <b-button type="is-success" @click="correct">VOLVER</b-button>
+    <b-button type="is-success" @click="pruebapug">PRUEBA PAGO</b-button>
   </div>
 </template>
 
@@ -41,6 +42,21 @@ export default {
 
     correct() {
       this.$router.replace({ name: 'select' });
+    },
+
+    async pruebapug() {
+      try {
+        const data = await this.axios({
+          method: 'get',
+          url: 'pruebapug',
+        });
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+
+      // this.$router.replace({ name: 'select' });
     },
   },
 

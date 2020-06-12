@@ -8,31 +8,32 @@ const {
   TRANSACTION_TYPES,
 } = require('redsys-pay');
 
-secretKey('sq7HjrUOBfKmC576ILgskD5srU870gJ7');
+secretKey(process.env.REDSYS_API_KEY);
 
-async function paymentIntent(req, res) {
-  const cart = req.body.cart;
+// async function paymentIntent(req, res) {
+async function pruebapug(req, res) {
+  // const cart = req.body.cart;
 
-  let amount = 0;
+  let amount = 50;
 
   try {
-    cart.detail.forEach(element => {
-      amount += element.price;
-    });
+    //   cart.detail.forEach(element => {
+    //     amount += element.price;
+    //   });
 
     amount *= 100;
 
     const obj = {
       amount: amount, // cents (in euro)
       order: '123123',
-      merchantName: 'REDSYS PAY SHOP',
-      merchantCode: '123123123',
+      merchantName: process.env.COMMERCE_NAME,
+      merchantCode: process.env.COMMERCE_CODE,
       currency: CURRENCIES.EUR,
       transactionType: TRANSACTION_TYPES.AUTHORIZATION, // '0'
       terminal: '1',
-      merchantURL: 'http://shop.js.gl/merchant',
-      successURL: 'http://shop.js.gl/success',
-      errorURL: 'http://shop.js.gl/error',
+      merchantURL: 'https://playasbenidorm.app',
+      successURL: `https://playasbenidorm.app/api/v1/complete/123123`,
+      errorURL: `https://playasbenidorm.app/api/v1/uncomplete/123123`,
     };
 
     const result = makeParameters(obj);
@@ -45,6 +46,14 @@ async function paymentIntent(req, res) {
   }
 }
 
+function errorDevuelto(req, res) {
+  const e = req.params['id'];
+  console.log(e);
+  res.status(200).send(e);
+}
+
 module.exports = {
-  paymentIntent,
+  // paymentIntent,
+  pruebapug,
+  errorDevuelto,
 };
