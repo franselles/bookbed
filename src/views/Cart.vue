@@ -140,6 +140,7 @@ export default {
         phone: null,
         ticketID: null,
         canceled: false,
+        payed: false,
         detail: [],
       },
       total: 0,

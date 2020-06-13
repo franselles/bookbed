@@ -175,6 +175,7 @@ export default {
         phone: null,
         ticketID: null,
         canceled: false,
+        payed: false,
         detail: [],
       },
       statusCart: {
@@ -328,6 +329,7 @@ export default {
           this.cartLocal.ticketID = null;
 
           this.cartLocal.canceled = false;
+          this.cartLocal.payed = false;
           this.cartLocal.detail.push({
             date: this.dateActual,
             cityID: e.cityID,

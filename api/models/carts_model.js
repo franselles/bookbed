@@ -30,6 +30,7 @@ const cartsSchema = new Schema(
     phone: { type: String },
     ticketID: { type: String },
     canceled: { type: Boolean },
+    payed: { type: Boolean },
     detail: [detailSchema],
   },
   { collection: 'carts' }
