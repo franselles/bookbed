@@ -366,45 +366,11 @@ export default {
       }
     },
 
-    /**
-     * Post para obtener token intent de pago en Stripe
-     * @param {*} context
-     * @param {Object} payload - Se le pasa cart, en server se calcula amount (importe)
-     */
-    async postStripeIntent(context, payload) {
+    async postMakeRedsys(context, payload) {
       try {
         const data = await Vue.axios({
           method: 'post',
-          url: 'secret',
-          data: payload,
-        });
-
-        return data;
-      } catch (error) {
-        return error;
-      }
-    },
-
-    async postRedsysSecret(context, payload) {
-      try {
-        const data = await Vue.axios({
-          method: 'post',
-          url: 'secret',
-          data: payload,
-        });
-
-        return data;
-      } catch (error) {
-        return error;
-      }
-    },
-
-    async postSabadell(context, payload) {
-      try {
-        const data = await Vue.axios({
-          method: 'post',
-          baseURL: 'https://sis-t.redsys.es:25443',
-          url: '/sis/realizarPago',
+          url: 'make',
           data: payload,
         });
 

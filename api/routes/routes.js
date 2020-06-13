@@ -23,8 +23,8 @@ const redsysControl = require('../controllers/redsys_control.js');
 
 // Redsys
 // api.post('/secret', redsysControl.paymentIntent);
-api.get('/pruebapug', redsysControl.pruebapug);
-api.get('/uncomplete/:id', redsysControl.errorDevuelto);
+api.post('/make', redsysControl.getMakeParameters);
+api.get('/check/:id', redsysControl.checkPayment);
 
 // Cities
 api.get('/cities', citiesControl.getCities);

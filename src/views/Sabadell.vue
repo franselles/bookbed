@@ -32,19 +32,21 @@
       <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" />
       <input
         type="hidden"
-        name="Ds_MerchantParameters"
+        name="Ds_MerchantParame­ters"
         v-model="Ds_MerchantParameters"
       />
       <input type="hidden" name="Ds_Signature" v-model="Ds_Signature" />
-      <!-- <button type="submit">PAGAR</button> -->
+      <button type="submit">PAGAR</button>
     </form>
 
     <b-button type="is-success" @click="correct">VOLVER</b-button>
-    <!-- <b-button type="is-success" @click="pruebapug">PRUEBA PAGO</b-button> -->
+    <b-button type="is-success" @click="make">PRUEBA PAGO</b-button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'sabadell',
   data() {
@@ -55,6 +57,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('userStore', ['postMakeRedsys']),
+
     back() {
       this.$router.go(-1);
     },
@@ -63,21 +67,10 @@ export default {
       this.$router.replace({ name: 'select' });
     },
 
-    async pruebapug() {
-      try {
-        const data = await this.axios({
-          method: 'get',
-          url: 'pruebapug',
-        });
-
-        this.Ds_MerchantParameters = data.merchantParameters;
-        this.Ds_Signature = data.signature;
-
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-
+    make() {
+      this.postMakeRedsys({ order: '12121', amount: 100 }).then(result => {
+        console.log(result);
+      });
       // this.$router.replace({ name: 'select' });
     },
   },
