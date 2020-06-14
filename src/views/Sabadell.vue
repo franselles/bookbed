@@ -27,15 +27,15 @@
       name="from"
       action="https://sis-t.redsys.es:25443/sis/realizarPago"
       method="POST"
-      target="_blank"
     >
-      <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" />
+      <!-- target="_blank" -->
+      <input type="text" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" />
       <input
-        type="hidden"
+        type="text"
         name="Ds_MerchantParame­ters"
         v-model="Ds_MerchantParameters"
       />
-      <input type="hidden" name="Ds_Signature" v-model="Ds_Signature" />
+      <input type="text" name="Ds_Signature" v-model="Ds_Signature" />
       <button type="submit">PAGAR</button>
     </form>
 
@@ -70,6 +70,8 @@ export default {
     make() {
       this.postMakeRedsys({ order: '12121', amount: 100 }).then(result => {
         console.log(result);
+        this.Ds_MerchantParameters = result.data.Ds_MerchantParameters;
+        this.Ds_Signature = result.data.Ds_Signature;
       });
       // this.$router.replace({ name: 'select' });
     },
