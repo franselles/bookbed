@@ -63,12 +63,23 @@ export default {
     ...mapActions('userStore', ['postMakeRedsys']),
 
     submit() {
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods':
+          'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+      };
+
       this.axios
-        .post('https://sis-t.redsys.es:25443/sis/realizarPago', {
-          Ds_SignatureVersion: this.Ds_SignatureVersion,
-          Ds_MerchantParameters: this.Ds_MerchantParameters,
-          Ds_Signature: this.Ds_Signature,
-        })
+        .post(
+          'https://sis-t.redsys.es:25443/sis/realizarPago',
+          {
+            Ds_SignatureVersion: this.Ds_SignatureVersion,
+            Ds_MerchantParameters: this.Ds_MerchantParameters,
+            Ds_Signature: this.Ds_Signature,
+          },
+          { headers }
+        )
         .then(function (response) {
           console.log(response);
           window.location = response.data.redirect;
