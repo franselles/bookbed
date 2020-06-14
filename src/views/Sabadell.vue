@@ -23,11 +23,13 @@
       PASEO DE COLON. PLAYA DE PONIENTE.
     </p>
 
-    <form
+    <!--     <form
       name="from"
       action="https://sis-t.redsys.es:25443/sis/realizarPago"
       method="POST"
-    >
+    > -->
+
+    <form @submit.prevent="submit">
       <!-- target="_blank" -->
       <input type="text" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" />
       <input
@@ -51,6 +53,7 @@ export default {
   name: 'sabadell',
   data() {
     return {
+      Ds_SignatureVersion: 'HMAC_SHA256_V1',
       Ds_MerchantParameters: '',
       Ds_Signature: '',
     };
@@ -58,6 +61,22 @@ export default {
 
   methods: {
     ...mapActions('userStore', ['postMakeRedsys']),
+
+    submit() {
+      this.axios
+        .post('https://sis-t.redsys.es:25443/sis/realizarPago', {
+          Ds_SignatureVersion: this.Ds_SignatureVersion,
+          Ds_MerchantParameters: this.Ds_MerchantParameters,
+          Ds_Signature: this.Ds_Signature,
+        })
+        .then(function (response) {
+          console.log(response);
+          window.location = response.data.redirect;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
 
     back() {
       this.$router.go(-1);
