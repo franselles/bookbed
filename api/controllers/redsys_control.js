@@ -6,6 +6,7 @@ const Carts = require('../models/carts_model');
 const {
   secretKey,
   makeParameters,
+  getResponseParameters,
   CURRENCIES,
   TRANSACTION_TYPES,
 } = require('redsys-pay');
@@ -51,11 +52,11 @@ function errorPayment(req, res) {
 }
 
 function successPayment(req, res) {
-  const { getResponseParameters } = require('redsys-pos');
+  const response = req.body.Ds_MerchantParameters;
+  console.log(req.body);
 
-  const RESPONSE = req.body.Ds_MerchantParameters;
-  const result = getResponseParameters(RESPONSE);
-  console.log(result.Ds_Order);
+  const result = getResponseParameters(response);
+  console.log(result);
 
   const update = { payed: true };
 
