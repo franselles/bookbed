@@ -205,18 +205,20 @@ export default {
           cart: this.cartLocal.detail,
         });
 
-        this.detailDuplicated.forEach(element => {
-          const index = this.cartLocal.detail.findIndex(
-            (p => p.citiID === element.cityID) &&
-              (p => p.beachID === element.beachID) &&
-              (p => p.sectorID === element.sectorID) &&
-              (p => p.typeID === element.typeID) &&
-              (p => p.col === element.col) &&
-              (p => p.row === element.row)
-          );
+        if (this.detailDuplicated.length > 0) {
+          this.detailDuplicated.forEach(element => {
+            const index = this.cartLocal.detail.findIndex(
+              (p => p.citiID === element.cityID) &&
+                (p => p.beachID === element.beachID) &&
+                (p => p.sectorID === element.sectorID) &&
+                (p => p.typeID === element.typeID) &&
+                (p => p.col === element.col) &&
+                (p => p.row === element.row)
+            );
 
-          this.cartLocal.detail.splice(index, 1);
-        });
+            this.cartLocal.detail.splice(index, 1);
+          });
+        }
 
         if (this.detailDuplicated.length > 0) {
           this.setCart(this.cartLocal);
@@ -226,13 +228,13 @@ export default {
         }
 
         const postC = await this.postCart(this.cartLocal);
+
         if (postC._id) {
-          console.log(postC._id);
           const Ds_pay = await this.postMakeRedsys({
             order: this.cartLocal.ticketID,
             amount: this.total * 100,
           });
-          console.log(Ds_pay);
+
           this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
           this.Ds_Signature = Ds_pay.data.Ds_Signature;
           console.log(this.Ds_MerchantParameters);

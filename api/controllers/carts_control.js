@@ -86,6 +86,11 @@ function getStock(cart) {
     return new Promise(function (resolve) {
       cart.detail.forEach((element, index) => {
         Carts.aggregate([
+          {
+            $match: {
+              payed: true,
+            },
+          },
           { $unwind: '$detail' },
           {
             $match: {

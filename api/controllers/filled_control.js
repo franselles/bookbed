@@ -21,6 +21,11 @@ async function getItems(querystring) {
 
 async function getCarts(querystring) {
   return await Carts.aggregate([
+    {
+      $match: {
+        payed: true,
+      },
+    },
     { $unwind: '$detail' },
     {
       $match: {
@@ -88,6 +93,11 @@ function getStock(req, res) {
   let exists = [];
   cart.forEach((element, index) => {
     Carts.aggregate([
+      {
+        $match: {
+          payed: true,
+        },
+      },
       { $unwind: '$detail' },
       {
         $match: {

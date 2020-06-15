@@ -203,7 +203,7 @@ export default {
       'setSectorActual',
       'setCart',
     ]),
-    ...mapMutations('userStore', ['setCart', 'checkCart']),
+    ...mapMutations('userStore', ['setCart']),
     ...mapActions('userStore', ['checkCart']),
 
     getSectorLocal() {
