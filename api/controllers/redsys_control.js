@@ -48,7 +48,7 @@ async function getMakeParameters(req, res) {
 }
 
 function successPaymentPost(req, res) {
-  console.log('get');
+  console.log('post ok', req.body);
 
   const merchantParams = req.body.Ds_MerchantParameters;
   const signature = req.body.Ds_Signature;
@@ -72,7 +72,7 @@ function successPaymentPost(req, res) {
 }
 
 function successPaymentGet(req, res) {
-  console.log('get');
+  console.log('get ok', req.query);
 
   const merchantParams = req.query.Ds_MerchantParameters;
   const signature = req.query.Ds_Signature;
@@ -98,7 +98,7 @@ function successPaymentGet(req, res) {
 }
 
 function errorPaymentGet(req, res) {
-  console.log('get');
+  console.log('get ko', req.query);
 
   const merchantParams = req.query.Ds_MerchantParameters;
   const signature = req.query.Ds_Signature;
