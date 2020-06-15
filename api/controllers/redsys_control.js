@@ -21,7 +21,7 @@ const redsys = new RedSys(MERCHANT_KEY);
 
 async function getMakeParameters(req, res) {
   const order = req.body.order;
-  const amount = req.body.amount;
+  const amount = req.body.amount * 100;
 
   try {
     const obj = {
@@ -34,7 +34,7 @@ async function getMakeParameters(req, res) {
       terminal: '1',
       merchantURL: 'http://playasbenidorm.app/api/v1/success',
       successURL: 'http://playasbenidorm.app/api/v1/success',
-      errorURL: 'http://playasbenidorm.app/api/v1/success',
+      errorURL: 'http://playasbenidorm.app/api/v1/error',
     };
 
     const result = redsys.makePaymentParameters(obj);
@@ -109,7 +109,7 @@ function errorPaymentGet(req, res) {
 
   console.log(result);
 
-  res.status(400).send(result);
+  res.status(200).send(result);
 }
 
 module.exports = {
