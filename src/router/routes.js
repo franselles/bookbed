@@ -81,10 +81,4 @@ export default [
     component: () => import('@/views/Legal.vue'),
     meta: { requiresAuth: true },
   },
-  {
-    path: '/sabadell',
-    name: 'sabadell',
-    component: () => import('@/views/Sabadell.vue'),
-    meta: { requiresAuth: true },
-  },
 ];

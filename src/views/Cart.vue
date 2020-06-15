@@ -87,12 +87,32 @@
       <b-button
         icon-left="shopping"
         type="is-success"
-        @click="check"
+        @click="check($event)"
         :disabled="!purchased"
         >ALQUILAR</b-button
       >
       <b-button type="is-danger" @click="cancel">CANCELAR</b-button>
     </div>
+    <form
+      ref="form"
+      name="form"
+      action="https://sis-t.redsys.es:25443/sis/realizarPago"
+      method="POST"
+    >
+      <!-- target="_blank" -->
+      <input
+        type="hidden"
+        name="Ds_SignatureVersion"
+        :value="Ds_SignatureVersion"
+      />
+      <input
+        type="hidden"
+        name="Ds_MerchantParameters"
+        :value="Ds_MerchantParameters"
+      />
+      <input type="hidden" name="Ds_Signature" :value="Ds_Signature" />
+      <!-- <button v-show="buttonPay" type="submit">PAGAR</button> -->
+    </form>
     <div class="buttons">
       <b-button type="is-info" @click="lopd">POLÍTICA DE PRIVACIDAD</b-button>
     </div>
@@ -146,6 +166,10 @@ export default {
       total: 0,
       detailDuplicated: [],
       acepted: false,
+      Ds_SignatureVersion: 'HMAC_SHA256_V1',
+      Ds_MerchantParameters: '',
+      Ds_Signature: '',
+      buttonPay: false,
     };
   },
 
@@ -161,6 +185,7 @@ export default {
       'postCart',
       'postRedsysSecret',
       'postSabadell',
+      'postMakeRedsys',
     ]),
     ...mapMutations('userStore', ['setCart', 'resetCart', 'setSabadell']),
 
@@ -168,57 +193,61 @@ export default {
       this.$router.replace({ name: 'sector' });
     },
 
-    check() {
-      // this.getTicketNumber({ date: this.cartLocal.date }).then(result => {
-      this.getTicketNumber().then(result => {
-        // this.cartLocal.ticketID = (
-        //   this.cartLocal.date + ('00000' + result).slice(-5)
-        // ).replace(/-/g, '');
-        this.cartLocal.ticketID = ('00000000' + result).slice(-8);
+    async check(event) {
+      event.preventDefault();
+      try {
+        const ticketNumber = await this.getTicketNumber();
+        this.cartLocal.ticketID = ('00000000' + ticketNumber).slice(-8);
 
         this.detailDuplicated = [];
-        try {
-          this.checkCart({ cart: this.cartLocal.detail }).then(result => {
-            this.detailDuplicated = result;
 
-            result.forEach(element => {
-              const index = this.cartLocal.detail.findIndex(
-                (p => p.citiID === element.cityID) &&
-                  (p => p.beachID === element.beachID) &&
-                  (p => p.sectorID === element.sectorID) &&
-                  (p => p.typeID === element.typeID) &&
-                  (p => p.col === element.col) &&
-                  (p => p.row === element.row)
-              );
+        this.detailDuplicated = await this.checkCart({
+          cart: this.cartLocal.detail,
+        });
 
-              this.cartLocal.detail.splice(index, 1);
-            });
+        this.detailDuplicated.forEach(element => {
+          const index = this.cartLocal.detail.findIndex(
+            (p => p.citiID === element.cityID) &&
+              (p => p.beachID === element.beachID) &&
+              (p => p.sectorID === element.sectorID) &&
+              (p => p.typeID === element.typeID) &&
+              (p => p.col === element.col) &&
+              (p => p.row === element.row)
+          );
 
-            if (this.detailDuplicated.length > 0) {
-              this.setCart(this.cartLocal);
-              this.calcTotal();
-              return;
-            }
+          this.cartLocal.detail.splice(index, 1);
+        });
 
-            // this.postRedsysSecret({ cart: this.cartLocal }).then(result => {
-            //   // console.log(result);
-            //   this.setSabadell(result.data);
-            //   this.$router.replace({ name: 'sabadell' });
-            // });
-
-            this.postCart(this.cartLocal).then(result => {
-              if (result._id) {
-                setTimeout(() => {
-                  this.resetCart();
-                  this.$router.replace({ name: 'sabadell' });
-                }, 2000);
-              }
-            });
-          });
-        } catch (error) {
-          console.log(error);
+        if (this.detailDuplicated.length > 0) {
+          this.setCart(this.cartLocal);
+          this.calcTotal();
+          // event.preventDefault();
+          return;
         }
-      });
+
+        const postC = await this.postCart(this.cartLocal);
+        if (postC._id) {
+          console.log(postC._id);
+          const Ds_pay = await this.postMakeRedsys({
+            order: this.cartLocal.ticketID,
+            amount: this.total * 100,
+          });
+          console.log(Ds_pay);
+          this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
+          this.Ds_Signature = Ds_pay.data.Ds_Signature;
+          console.log(this.Ds_MerchantParameters);
+          console.log(this.Ds_Signature);
+          console.log(this.Ds_SignatureVersion);
+
+          // this.buttonPay = true;
+
+          setTimeout(() => {
+            this.$refs.form.submit();
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     formatDate(date) {
