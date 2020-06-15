@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.30",
+  "version": "0.3.31",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -21,7 +21,7 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.9.18",
     "qrcode.vue": "^1.7.0",
-    "redsys-pay": "^1.1.0",
+    "redsys-pos": "^1.0.2",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
