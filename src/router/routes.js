@@ -81,4 +81,16 @@ export default [
     component: () => import('@/views/Legal.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/error',
+    name: 'error',
+    component: () => import('@/views/Error.vue'),
+    meta: { requiresAuth: false },
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: () => import('@/views/Success.vue'),
+    meta: { requiresAuth: false },
+  },
 ];

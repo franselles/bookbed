@@ -14,17 +14,12 @@ const filledControl = require('../controllers/filled_control.js');
 const sectorsControl = require('../controllers/sectors_control.js');
 const cartsControl = require('../controllers/carts_control.js');
 const redsysControl = require('../controllers/redsys_control.js');
-// const stripeControl = require('../controllers/stripe_control.js');
 
 // const usersControl = require('../controllers/users_control.js');
 
-// Stripe
-// api.post('/secret', stripeControl.paymentIntent);
-
 // Redsys
-// api.post('/secret', redsysControl.paymentIntent);
 api.post('/make', redsysControl.getMakeParameters);
-api.get('/check/:id', redsysControl.checkPayment);
+api.get('/success', redsysControl.checkPayment);
 
 // Cities
 api.get('/cities', citiesControl.getCities);

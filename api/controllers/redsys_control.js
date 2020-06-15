@@ -25,7 +25,7 @@ async function getMakeParameters(req, res) {
       currency: CURRENCIES.EUR,
       transactionType: TRANSACTION_TYPES.AUTHORIZATION, // '0'
       terminal: '1',
-      merchantURL: 'https://playasbenidorm.app/api/v1/check/122121',
+      merchantURL: `https://playasbenidorm.app/api/v1/success?id=${order}`,
       successURL: 'https://playasbenidorm.app/#/success',
       errorURL: 'https://playasbenidorm.app/#/error',
     };
@@ -54,7 +54,7 @@ function successPayment(req, res) {
   const id = req.query.id;
   const update = { payed: true };
 
-  Carts.findByIdAndUpdate(id, update).exec((err, docStored) => {
+  Carts.findOneAndUpdate({ ticketID: id }, update).exec((err, docStored) => {
     if (err)
       res.status(500).send({
         message: `Error al salvar en la base de datos: ${err} `,
