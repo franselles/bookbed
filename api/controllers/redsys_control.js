@@ -34,7 +34,7 @@ async function getMakeParameters(req, res) {
       terminal: '1',
       merchantURL: 'http://playasbenidorm.app/api/v1/success',
       successURL: 'http://playasbenidorm.app/api/v1/success',
-      errorURL: 'http://playasbenidorm.app/api/v1/error',
+      errorURL: 'http://playasbenidorm.app/api/v1/success',
     };
 
     const result = redsys.makePaymentParameters(obj);
