@@ -32,7 +32,7 @@ async function getMakeParameters(req, res) {
       currency: String(CURRENCIES.EUR),
       transactionType: String(TRANSACTION_TYPES.AUTHORIZATION), // '0'
       terminal: '1',
-      merchantURL: 'http://playasbenidorm.app/api/v1/success',
+      merchantURL: 'http://playasbenidorm.app/api/v1/successpost',
       successURL: 'http://playasbenidorm.app/api/v1/success',
       errorURL: 'http://playasbenidorm.app/api/v1/error',
     };
