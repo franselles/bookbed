@@ -19,7 +19,7 @@ const redsysControl = require('../controllers/redsys_control.js');
 
 // Redsys
 api.post('/make', redsysControl.getMakeParameters);
-api.get('/success', redsysControl.checkPayment);
+api.post('/success', redsysControl.successPayment);
 
 // Cities
 api.get('/cities', citiesControl.getCities);

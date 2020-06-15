@@ -145,6 +145,7 @@ function getCarts(req, res) {
 
   Carts.find({
     userID: userID,
+    payed: true,
   }).exec((err, doc) => {
     if (err)
       return res.status(500).send({
@@ -164,6 +165,11 @@ function getCartsDetail(req, res) {
   const date = req.query.date;
 
   Carts.aggregate([
+    {
+      $match: {
+        payed: true,
+      },
+    },
     { $unwind: '$detail' },
     {
       $match: {

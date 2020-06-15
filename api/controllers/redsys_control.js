@@ -25,7 +25,7 @@ async function getMakeParameters(req, res) {
       currency: CURRENCIES.EUR,
       transactionType: TRANSACTION_TYPES.AUTHORIZATION, // '0'
       terminal: '1',
-      merchantURL: `https://playasbenidorm.app/api/v1/success?id=${order}`,
+      merchantURL: `https://playasbenidorm.app/api/v1/success`,
       successURL: 'https://playasbenidorm.app/#/success',
       errorURL: 'https://playasbenidorm.app/#/error',
     };
@@ -51,17 +51,24 @@ function errorPayment(req, res) {
 }
 
 function successPayment(req, res) {
-  const id = req.query.id;
+  const { getResponseParameters } = require('redsys-pos');
+
+  const RESPONSE = req.body.Ds_MerchantParameters;
+  const result = getResponseParameters(RESPONSE);
+  console.log(result.Ds_Order);
+
   const update = { payed: true };
 
-  Carts.findOneAndUpdate({ ticketID: id }, update).exec((err, docStored) => {
-    if (err)
-      res.status(500).send({
-        message: `Error al salvar en la base de datos: ${err} `,
-      });
+  Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
+    (err, docStored) => {
+      if (err)
+        res.status(500).send({
+          message: `Error al salvar en la base de datos: ${err} `,
+        });
 
-    res.status(200).send(docStored);
-  });
+      res.status(200).send(docStored);
+    }
+  );
 }
 
 module.exports = {
