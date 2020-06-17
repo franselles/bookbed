@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
 
@@ -114,9 +114,14 @@ export default {
         import: 0,
       },
       groupLocal: [],
+      localUser: '',
     };
   },
   mounted() {
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.getUserID().then(result => {
+      this.localUser = result;
+    });
     // this.date = dayjs(this.dateActual).toDate();
     this.date = this.dateActual;
 
@@ -136,7 +141,7 @@ export default {
       'setGroup',
     ]),
     ...mapMutations('userStore', ['setCart', 'checkCart']),
-    ...mapActions('userStore', ['checkCart']),
+    ...mapActions('userStore', ['checkCart', 'getUserID']),
 
     getSectorLocal() {
       this.statusSector = [];

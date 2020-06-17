@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
 
@@ -183,10 +183,15 @@ export default {
         import: 0,
       },
       detailDuplicated: [],
+      localUser: '',
     };
   },
   mounted() {
     // this.date = dayjs(this.dateActual).toDate();
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.getUserID().then(result => {
+      this.localUser = result;
+    });
     this.date = this.dateActual;
 
     // this.sectorLocal = this.sectorActual;
@@ -204,7 +209,7 @@ export default {
       'setCart',
     ]),
     ...mapMutations('userStore', ['setCart']),
-    ...mapActions('userStore', ['checkCart']),
+    ...mapActions('userStore', ['checkCart', 'getUserID']),
 
     getSectorLocal() {
       this.statusSector = [];
@@ -323,8 +328,8 @@ export default {
 
         if (this.cartLocal.date == null) {
           this.cartLocal.date = dayjs(new Date()).format('YYYY-MM-DD');
-          this.cartLocal.userID = this.user.userID;
-          this.cartLocal.phone = this.user.phone;
+          this.cartLocal.userID = this.localUser.userID;
+          this.cartLocal.phone = this.localUser.phone;
 
           this.cartLocal.ticketID = null;
 

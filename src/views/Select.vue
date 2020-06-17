@@ -45,6 +45,7 @@ export default {
   },
 
   mounted() {
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
     this.getUserID().then(result => {
       this.localUser = result;
     });

@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
 
@@ -137,6 +137,7 @@ export default {
       sectorSelectedMsg: '',
       buttonSelect: true,
       minDate: null,
+      localUser: '',
     };
   },
   mounted() {
@@ -144,6 +145,10 @@ export default {
     this.minDate = dayjs(new Date()).add(-1, 'days').$d;
     this.getCities().then(response => {
       this.citiesLocal = response;
+    });
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.getUserID().then(result => {
+      this.localUser = result;
     });
   },
   methods: {
@@ -154,6 +159,8 @@ export default {
       'setBeachActual',
       'setSectorActual',
     ]),
+
+    ...mapActions('userStore', ['getUserID']),
 
     changeCity(event) {
       this.getBeaches(event.cityID).then(response => {

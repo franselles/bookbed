@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
     <b-field>
@@ -85,10 +85,13 @@ export default {
   data() {
     return {
       cartsLocal: [],
+      localUser: '',
     };
   },
 
   mounted() {
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.localUser = this.user;
     this.getCarts({ userID: this.user.userID }).then(result => {
       this.cartsLocal = result;
     });

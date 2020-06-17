@@ -10,7 +10,6 @@
         </div>
         <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
         <p>COMPRA REALIZADA CON EXITO</p>
-        <p>POR SEGURIDAD VUELVA A ENTRAR EN LA APP</p>
         <br />
 
         <b-button type="is-success" expanded @click="goOn">ACEPTAR</b-button>
@@ -25,7 +24,7 @@ export default {
 
   methods: {
     goOn() {
-      this.$router.push({ name: 'login' });
+      this.$router.push({ name: 'select' });
     },
   },
 };

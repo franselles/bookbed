@@ -210,6 +210,7 @@ export default {
 
         if (data.data) {
           sessionStorage.setItem('user-token', data.data.token);
+          // sessionStorage.setItem('user-id', JSON.stringify(data.data));
           sessionStorage.setItem('user-id', data.data._id);
           Vue.axios.defaults.headers.common['authorization'] =
             'Bearer ' + data.data.token;
@@ -267,6 +268,7 @@ export default {
 
         if (data.data) {
           sessionStorage.setItem('user-token', data.data.token);
+          // sessionStorage.setItem('user-id', JSON.stringify(data.data));
           sessionStorage.setItem('user-id', data.data._id);
           Vue.axios.defaults.headers.common['authorization'] =
             'Bearer ' + data.data.token;

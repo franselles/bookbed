@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
     <b-field>
@@ -176,10 +176,15 @@ export default {
       Ds_MerchantParameters: '',
       Ds_Signature: '',
       buttonPay: false,
+      localUser: '',
     };
   },
 
   mounted() {
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.getUserID().then(result => {
+      this.localUser = result;
+    });
     this.cartLocal = this.cart;
     this.calcTotal();
   },
@@ -192,6 +197,7 @@ export default {
       'postRedsysSecret',
       'postSabadell',
       'postMakeRedsys',
+      'getUserID',
     ]),
     ...mapMutations('userStore', ['setCart', 'resetCart', 'setSabadell']),
 

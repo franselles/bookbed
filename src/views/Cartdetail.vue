@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
 
@@ -108,10 +108,13 @@ export default {
       ticketsDay: [],
       size: 250,
       date: dayjs(new Date()).format('YYYY-MM-DD'),
+      localUser: '',
     };
   },
 
   mounted() {
+    // this.localUser = JSON.parse(sessionStorage.getItem('user-id'));
+    this.localUser = this.user;
     const userID = this.user.userID;
 
     this.getCartsDetail({ userID, date: this.date }).then(result => {

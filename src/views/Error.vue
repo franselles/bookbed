@@ -10,7 +10,6 @@
         </div>
         <p>NO SE HA PODIDO COMPLETAR LA COMPRA</p>
         <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
-        <p>POR SEGURIDAD VUELVA A ENTRAR EN LA APP</p>
         <br />
 
         <b-button type="is-danger" expanded @click="cancel">ERROR</b-button>
@@ -25,7 +24,7 @@ export default {
 
   methods: {
     cancel() {
-      this.$router.push({ name: 'login' });
+      this.$router.push({ name: 'select' });
     },
   },
 };
