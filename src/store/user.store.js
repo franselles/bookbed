@@ -32,6 +32,7 @@ export default {
     },
     setLogout(state) {
       sessionStorage.removeItem('user-token');
+      sessionStorage.removeItem('user-id');
       state.logged = false;
     },
     /**
@@ -206,6 +207,7 @@ export default {
             password: payload.password,
           },
         });
+
         if (data.data) {
           sessionStorage.setItem('user-token', data.data.token);
           sessionStorage.setItem('user-id', data.data._id);
@@ -236,13 +238,14 @@ export default {
             id: sessionStorage.getItem('user-id'),
           },
         });
+
         if (data.data) {
           // Vue.axios.defaults.headers.common['authorization'] =
           //  'Bearer ' + sessionStorage.getItem('user-token');
           // await commit('setLogged');
           await commit('setUser', data.data);
           await dispatch('getCarts', { userID: data.data.userID });
-          return true;
+          return data.data;
         }
       } catch (error) {
         return false;

@@ -23,7 +23,9 @@ export default {
     ...mapActions('userStore', ['getUserID']),
 
     goOn() {
-      this.getUserID().then(() => {
+      this.getUserID().then(result => {
+        console.log(result);
+
         this.getUserID(), this.$router.replace({ name: 'select' });
       });
     },

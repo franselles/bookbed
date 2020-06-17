@@ -47,7 +47,13 @@ function getUserById(req, res) {
         message: 'No existe',
       });
 
-    res.status(200).send(doc);
+    return res.status(200).send({
+      _id: doc[0]._id,
+      name: doc[0].name,
+      phone: doc[0].phone,
+      userID: doc[0].userID,
+      auxID: doc[0].userID,
+    });
   });
 }
 

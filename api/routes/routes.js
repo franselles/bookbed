@@ -72,6 +72,10 @@ api.get('/', function (request, response) {
 function middlewareRouter(req, res, next) {
   // console.log(req.headers);
 
+  if (req.headers['authorization'] == null) {
+    return;
+  }
+
   let tokenHeader = req.headers['authorization'].split(' ');
   let token = tokenHeader[1];
   // console.log(tokenHeader, token);

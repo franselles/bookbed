@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li v-if="user != null">{{ user.name }}</li>
+        <li>{{ localUser.name }}</li>
       </ul>
     </nav>
 
@@ -36,15 +36,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Select',
   data() {
-    return {};
+    return { localUser: '' };
+  },
+
+  mounted() {
+    this.getUserID().then(result => {
+      this.localUser = result;
+    });
   },
 
   methods: {
+    ...mapActions('userStore', ['getUserID']),
+
     checkIn() {
       this.$router.push({ name: 'citybeaches' });
     },
