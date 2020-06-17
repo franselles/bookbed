@@ -238,7 +238,7 @@ export default {
             id: sessionStorage.getItem('user-id'),
           },
         });
-        console.log(sessionStorage.getItem('user-id'));
+        console.log('getid', sessionStorage.getItem('user-id'));
 
         console.log(data.data);
 

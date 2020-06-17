@@ -113,6 +113,8 @@ export default {
 
   mounted() {
     const userID = this.user.userID;
+    console.log(this.user.userID, this.date);
+
     this.getCartsDetail({ userID, date: this.date }).then(result => {
       this.ticketsDay = result;
     });
