@@ -25,8 +25,7 @@ export default {
     goOn() {
       this.getUserID().then(result => {
         console.log(result);
-
-        this.getUserID(), this.$router.replace({ name: 'select' });
+        this.$router.replace({ name: 'select' });
       });
     },
   },
