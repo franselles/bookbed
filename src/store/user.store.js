@@ -238,9 +238,6 @@ export default {
             id: sessionStorage.getItem('user-id'),
           },
         });
-        console.log('getid', sessionStorage.getItem('user-id'));
-
-        console.log(data.data);
 
         if (data.data) {
           // Vue.axios.defaults.headers.common['authorization'] =

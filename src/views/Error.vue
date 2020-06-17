@@ -2,12 +2,18 @@
   <div>
     <article class="message is-danger">
       <div class="message-header">
-        <p>Success</p>
+        <p>ERROR NO SE HA COMPLETADO</p>
       </div>
       <div class="message-body">
+        <div class="block">
+          <b-icon icon="minus-circle-outline"></b-icon>
+        </div>
         <p>NO SE HA PODIDO COMPLETAR LA COMPRA</p>
+        <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
+        <p>POR SEGURIDAD VUELVA A ENTRAR EN LA APP</p>
+        <br />
 
-        <b-button type="is-danger" @click="cancel">CANCELAR</b-button>
+        <b-button type="is-danger" expanded @click="cancel">ERROR</b-button>
       </div>
     </article>
   </div>
@@ -19,7 +25,7 @@ export default {
 
   methods: {
     cancel() {
-      this.$router.replace({ name: 'sector' });
+      this.$router.push({ name: 'login' });
     },
   },
 };

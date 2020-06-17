@@ -72,6 +72,12 @@
     <b-field class="is-size-7">
       TODOS LOS PRECIOS CON EL I.V.A. INCLUIDO
     </b-field>
+    <b-field class="is-size-7">
+      EL PAGO SE VA A REALIZAR A TRAVÉS
+    </b-field>
+    <b-field class="is-size-7">
+      DE LA PLATAFORMA DE PAGO DEL BANCO SABADELL
+    </b-field>
     <b-field>
       <b-checkbox v-model="acepted">
         <router-link to="/legal">Aceptar la condiciones de venta</router-link>
@@ -248,11 +254,6 @@ export default {
 
           this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
           this.Ds_Signature = Ds_pay.data.Ds_Signature;
-          console.log(this.Ds_MerchantParameters);
-          console.log(this.Ds_Signature);
-          console.log(this.Ds_SignatureVersion);
-
-          // this.buttonPay = true;
 
           setTimeout(() => {
             this.$refs.form.submit();

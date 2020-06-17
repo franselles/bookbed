@@ -2,31 +2,30 @@
   <div>
     <article class="message is-success">
       <div class="message-header">
-        <p>Success</p>
+        <p>COMPLETADO CON EXITO</p>
       </div>
       <div class="message-body">
+        <div class="block">
+          <b-icon icon="check-bold"></b-icon>
+        </div>
+        <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
         <p>COMPRA REALIZADA CON EXITO</p>
+        <p>POR SEGURIDAD VUELVA A ENTRAR EN LA APP</p>
+        <br />
 
-        <b-button type="is-danger" @click="goOn">ACEPTAR</b-button>
+        <b-button type="is-success" expanded @click="goOn">ACEPTAR</b-button>
       </div>
     </article>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   name: 'success',
 
   methods: {
-    ...mapActions('userStore', ['getUserID']),
-
     goOn() {
-      this.getUserID().then(result => {
-        console.log('success', result);
-        this.$router.push({ name: 'select' });
-      });
+      this.$router.push({ name: 'login' });
     },
   },
 };
