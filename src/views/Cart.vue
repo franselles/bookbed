@@ -193,11 +193,22 @@ export default {
       this.$router.replace({ name: 'sector' });
     },
 
+    generateUUID(s) {
+      let d = new Date().getTime();
+      const uuid = s.replace(/[xy]/g, function (c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      });
+      return uuid;
+    },
+
     async check(event) {
       event.preventDefault();
       try {
         const ticketNumber = await this.getTicketNumber();
-        this.cartLocal.ticketID = ('00000000' + ticketNumber).slice(-8);
+        this.cartLocal.ticketID =
+          this.generateUUID('xxx') + ('00000000' + ticketNumber).slice(-8);
 
         this.detailDuplicated = [];
 
