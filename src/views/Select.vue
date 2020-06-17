@@ -7,7 +7,7 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
-        <li>{{ user.name }}</li>
+        <li v-if="user != null">{{ user.name }}</li>
       </ul>
     </nav>
 

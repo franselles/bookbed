@@ -22,7 +22,6 @@ const redsys = new RedSys(MERCHANT_KEY);
 async function getMakeParameters(req, res) {
   const order = req.body.order;
   const amount = req.body.amount * 100;
-
   try {
     const obj = {
       amount: String(amount), // cents (in euro)
@@ -36,9 +35,7 @@ async function getMakeParameters(req, res) {
       successURL: 'https://playasbenidorm.app/api/v1/success',
       errorURL: 'https://playasbenidorm.app/api/v1/error',
     };
-
     const result = redsys.makePaymentParameters(obj);
-
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send({
@@ -49,26 +46,23 @@ async function getMakeParameters(req, res) {
 
 function successPaymentPost(req, res) {
   console.log('post ok', req.body);
-
   const merchantParams = req.body.Ds_MerchantParameters;
   const signature = req.body.Ds_Signature;
   console.log(req.body.Ds_MerchantParameters);
   console.log(req.body.Ds_Signature);
-
   const result = redsys.checkResponseParameters(merchantParams, signature);
-
   console.log(result);
-
   const update = { payed: true };
-
-  Carts.findOneAndUpdate({ ticketID: 56 }, update).exec((err, docStored) => {
-    if (err)
-      res.status(500).send({
-        message: `Error al salvar en la base de datos: ${err} `,
-      });
-
-    res.status(200).send(docStored);
-  });
+  Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
+    (err, docStored) => {
+      if (err)
+        res.status(500).send({
+          message: `Error al salvar en la base de datos: ${err} `,
+        });
+      console.log(docStored);
+      res.status(200).send(docStored);
+    }
+  );
 }
 
 function successPaymentGet(req, res) {
@@ -76,22 +70,17 @@ function successPaymentGet(req, res) {
 
   const merchantParams = req.query.Ds_MerchantParameters;
   const signature = req.query.Ds_Signature;
-  console.log(req.body.Ds_MerchantParameters);
-  console.log(req.body.Ds_Signature);
-
+  console.log(req.query.Ds_MerchantParameters);
+  console.log(req.query.Ds_Signature);
   const result = redsys.checkResponseParameters(merchantParams, signature);
-
   console.log(result);
-
   const update = { payed: true };
-
   Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
     (err, docStored) => {
       if (err)
         res.status(500).send({
           message: `Error al salvar en la base de datos: ${err} `,
         });
-
       res.status(200).send(docStored);
     }
   );
