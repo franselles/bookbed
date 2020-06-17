@@ -16,9 +16,27 @@ function generateUUID(s) {
 }
 
 function getUserID(req, res) {
-  const userID = req.query.userID;
+  const userID = req.query.id;
   Users.find({
     userID: userID,
+  }).exec((err, doc) => {
+    if (err)
+      return res.status(500).send({
+        message: `Error al realizar la petición: ${err}`,
+      });
+    if (doc.length == 0)
+      return res.status(404).send({
+        message: 'No existe',
+      });
+
+    res.status(200).send(doc);
+  });
+}
+
+function getUserById(req, res) {
+  const id = req.query.id;
+  Users.find({
+    _id: id,
   }).exec((err, doc) => {
     if (err)
       return res.status(500).send({
@@ -367,4 +385,5 @@ module.exports = {
   checkTokenPass,
   checkEmailRecovery,
   updatePassword,
+  getUserById,
 };

@@ -41,6 +41,7 @@ api.delete('/cart', middlewareRouter, cartsControl.deleteCartFinal);
 api.get('/user/email', usersControl.checkEmail);
 api.get('/user/id', middlewareRouter, usersControl.getUserID);
 api.get('/user', usersControl.getUser);
+api.get('/userid', usersControl.getUserById);
 api.post('/user', usersControl.postUser);
 api.post('/recovery', usersControl.checkEmailRecovery);
 api.get('/recovery', usersControl.checkTokenPass);

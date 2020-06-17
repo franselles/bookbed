@@ -208,9 +208,38 @@ export default {
         });
         if (data.data) {
           sessionStorage.setItem('user-token', data.data.token);
+          sessionStorage.setItem('user-id', data.data._id);
           Vue.axios.defaults.headers.common['authorization'] =
             'Bearer ' + data.data.token;
           await commit('setLogged');
+          await commit('setUser', data.data);
+          await dispatch('getCarts', { userID: data.data.userID });
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    },
+
+    /**
+     * Se obtiene el user por ID
+     * @param {*} commit
+     * @param {*} dispatch
+     * @param {Object} payload - Email y password del user
+     */
+    async getUserID({ commit, dispatch }) {
+      try {
+        const data = await Vue.axios({
+          method: 'get',
+          url: 'userid',
+          params: {
+            id: sessionStorage.getItem('user-id'),
+          },
+        });
+        if (data.data) {
+          // Vue.axios.defaults.headers.common['authorization'] =
+          //  'Bearer ' + sessionStorage.getItem('user-token');
+          // await commit('setLogged');
           await commit('setUser', data.data);
           await dispatch('getCarts', { userID: data.data.userID });
           return true;
@@ -235,6 +264,7 @@ export default {
 
         if (data.data) {
           sessionStorage.setItem('user-token', data.data.token);
+          sessionStorage.setItem('user-id', data.data._id);
           Vue.axios.defaults.headers.common['authorization'] =
             'Bearer ' + data.data.token;
           await commit('setLogged');

@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
   // const level = store.state.login.login.level
   const logged = sessionStorage.getItem('user-token');
 
-  if (logged === false && requiresAuth) {
+  if (logged === null && requiresAuth) {
     next({ name: 'login' });
   } else {
     next();
