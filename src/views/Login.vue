@@ -43,7 +43,7 @@
       <div class="control">
         <b-taglist attached>
           <b-tag type="is-dark">version</b-tag>
-          <b-tag type="is-info">0.3.52</b-tag>
+          <b-tag type="is-info">0.3.53</b-tag>
         </b-taglist>
       </div>
     </form>
@@ -90,6 +90,7 @@ export default {
     this.checkServer().then(result => {
       if (result) {
         this.setLogout();
+        this.resetCart();
         this.offline = false;
       }
     });
@@ -97,7 +98,7 @@ export default {
 
   methods: {
     ...mapActions('userStore', ['getUser', 'checkServer']),
-    ...mapMutations('userStore', ['setEmail', 'setLogout']),
+    ...mapMutations('userStore', ['setEmail', 'setLogout', 'resetCart']),
 
     logup() {
       this.$router.push({ name: 'logup' });
