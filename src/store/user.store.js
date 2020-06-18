@@ -414,6 +414,20 @@ export default {
         return error;
       }
     },
+
+    async testMail(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'post',
+          url: 'successpost',
+          data: payload,
+        });
+
+        return data;
+      } catch (error) {
+        return error;
+      }
+    },
   },
 
   getters: {},

@@ -80,7 +80,7 @@ function sendEmail(params) {
     const data = {
       from: 'app@playasbenidorm.es',
       to: params.email,
-      subject: 'Recuperación de contraseña - playasbenidorm 2020',
+      subject: 'Recuperación de contraseña - playasbenidorm.app',
       html: `<html><head></head><body>Pulse el siguiente enlace para crear nuevas contraseñas
       <a href="https://playasbenidorm.app/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
       <p>Si tiene dudas o necesita información diríjase a app@playasbenidorm.es</p>

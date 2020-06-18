@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 const Carts = require('../models/carts_model');
+const Users = require('../models/users_model');
 
 /* const {
   secretKey,
@@ -53,12 +54,22 @@ function paymentPost(req, res) {
 
   if ((ds_response >= 0 && ds_response < 100) || ds_response == 900) {
     const update = { payed: true };
+
     Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
       (err, docStored) => {
         if (err)
           res.status(500).send({
             message: `Error al salvar en la base de datos: ${err} `,
           });
+
+        Users.findOne({ userID: docStored.userID }).exec((err, doc) => {
+          if (err)
+            res.status(500).send({
+              message: `Error al salvar en la base de datos: ${err} `,
+            });
+          sendEmail(doc, docStored);
+        });
+
         res.status(200).send(docStored);
       }
     );
@@ -67,7 +78,130 @@ function paymentPost(req, res) {
   }
 }
 
+function paymentPost2(req, res) {
+  const order = req.body.order;
+
+  const update = { payed: true };
+
+  Carts.findOneAndUpdate({ ticketID: order }, update).exec((err, docStored) => {
+    if (err)
+      res.status(500).send({
+        message: `Error al salvar en la base de datos: ${err} `,
+      });
+
+    Users.findOne({ userID: docStored.userID }).exec((err, doc) => {
+      if (err)
+        res.status(500).send({
+          message: `Error al salvar en la base de datos: ${err} `,
+        });
+      sendEmail(doc, docStored);
+    });
+
+    res.status(200).send(docStored);
+  });
+}
+
+function sendEmail(params, cart) {
+  try {
+    const Mailgen = require('mailgen');
+
+    const mailGenerator = new Mailgen({
+      theme: 'default',
+      product: {
+        // Appears in header & footer of e-mails
+        name: 'PLAYASBENIDORM.APP',
+        link: 'https://playasbenidorm.app/',
+        copyright: 'Copyright © 2020 R.A. BENIDORM S.L.',
+      },
+    });
+
+    const email = {
+      body: {
+        title: `HOLA ${params.name}, GRACIAS POR ALQUILAR NUESTRAS HAMACAS.`,
+        intro: [
+          'Ticket de compra.',
+          `Fecha ${cart.date}. Ticket Número ${cart.ticketID}.`,
+          'R.A. BENIDORM S.L. - N.I.F.: B.03831021',
+          'C/ Mallorca. Ed. Provima. local 15. 03503. Benidorm',
+        ],
+
+        table: {
+          data: [],
+          columns: {
+            // Optionally, customize the column widths
+            customWidth: {
+              ITEM: '20%',
+              PRECIO: '15%',
+            },
+            // Optionally, change column text alignment
+            customAlignment: {
+              PRECIO: 'right',
+            },
+          },
+        },
+        outro: [
+          'Para cualquier consulta ',
+          'Responda a este correo. Le atenderemos en breve. Gracias',
+        ],
+      },
+    };
+
+    let total = 0;
+
+    cart.detail.forEach(item => {
+      let data = {
+        ITEM: item.date,
+        DESCRIPCION: item.type + ' COL: ' + item.col + ', FIL: ' + item.row,
+        PRECIO: item.price + ' €',
+      };
+
+      total += item.price;
+
+      email.body.table.data.push(data);
+    });
+
+    email.body.table.data.push({
+      ITEM: '',
+      DESCRIPCION: 'TOTAL:',
+      PRECIO: total + ' €',
+    });
+
+    email.body.table.data.push({
+      ITEM: '',
+      DESCRIPCION: 'TODOS LOS PRECIOS INCLUYEN EL I.V.A. (21 %)',
+      PRECIO: '',
+    });
+
+    const emailBody = mailGenerator.generate(email);
+
+    const api_key = process.env.MAILGUN_API_KEY;
+    const domain = process.env.MAILGUN_DOMAIN;
+    const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
+
+    const data = {
+      from: 'app@playasbenidorm.es',
+      to: params.email,
+      subject: `Ticket de compra ${cart.ticketID} - playasbenidorm.app`,
+      html: emailBody,
+    };
+
+    //const result = await mailgun.messages().send(data);
+    return new Promise(function (resolve) {
+      mailgun.messages().send(data, function (error, body) {
+        // console.log(body);
+        resolve(body);
+      });
+    });
+
+    // return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   getMakeParameters,
   paymentPost,
+  sendEmail,
+  paymentPost2,
 };

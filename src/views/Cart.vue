@@ -198,6 +198,7 @@ export default {
       'postSabadell',
       'postMakeRedsys',
       'getUserID',
+      'testMail',
     ]),
     ...mapMutations('userStore', ['setCart', 'resetCart', 'setSabadell']),
 
@@ -260,6 +261,10 @@ export default {
 
           this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
           this.Ds_Signature = Ds_pay.data.Ds_Signature;
+
+          // this.testMail({
+          //   order: this.cartLocal.ticketID,
+          // });
 
           setTimeout(() => {
             this.$refs.form.submit();
