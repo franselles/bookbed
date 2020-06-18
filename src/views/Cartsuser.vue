@@ -8,6 +8,11 @@
           >
         </li>
         <li>{{ localUser.name }}</li>
+        <li>
+          <a href="#" @click="logout"
+            ><b-icon icon="home-circle"></b-icon>SALIR DE LA APP</a
+          >
+        </li>
       </ul>
     </nav>
     <b-field>
@@ -102,6 +107,10 @@ export default {
 
     back() {
       this.$router.go(-1);
+    },
+
+    logout() {
+      this.$router.replace({ name: 'login' });
     },
 
     formatDate(date) {

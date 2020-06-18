@@ -7,6 +7,11 @@
             ><b-icon icon="arrow-left-thick"></b-icon> VOLVER</a
           >
         </li>
+        <li>
+          <a href="#" @click="logout"
+            ><b-icon icon="home-circle"></b-icon>SALIR DE LA APP</a
+          >
+        </li>
       </ul>
     </nav>
     <p>
@@ -93,6 +98,10 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+
+    logout() {
+      this.$router.replace({ name: 'login' });
     },
   },
 };

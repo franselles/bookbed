@@ -1,5 +1,14 @@
 <template>
   <div>
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <a href="#" @click="logout"
+            ><b-icon icon="home-circle"></b-icon>SALIR DE LA APP</a
+          >
+        </li>
+      </ul>
+    </nav>
     <article class="message is-success">
       <div class="message-header">
         <p>COMPLETADO CON EXITO</p>
@@ -25,6 +34,10 @@ export default {
   methods: {
     goOn() {
       this.$router.push({ name: 'select' });
+    },
+
+    logout() {
+      this.$router.replace({ name: 'login' });
     },
   },
 };
