@@ -150,6 +150,7 @@ export default {
 
     getSectorLocal() {
       this.statusSector = [];
+      this.groupLocal = [];
 
       this.getSector({
         cityID: this.cityActual.cityID,
@@ -216,12 +217,12 @@ export default {
           groupR < this.groupLocal[groupC].length;
           groupR++
         ) {
-          // console.log(groupC, groupR);
           let numberCols = this.groupLocal[groupC][groupR].numberCols;
           let numberRows = this.groupLocal[groupC][groupR].numberRows;
 
           let numberItemsAv = 0;
           let empty = false;
+
           for (let c = groupC * 10; c < groupC * 10 + numberCols; c++) {
             for (let r = groupR * 5; r < groupR * 5 + numberRows; r++) {
               if (

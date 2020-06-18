@@ -218,6 +218,7 @@ export default {
 
     getSectorLocal() {
       this.statusSector = [];
+      this.tempoSector = [];
 
       this.getSector({
         cityID: this.cityActual.cityID,

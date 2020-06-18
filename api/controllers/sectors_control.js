@@ -25,10 +25,12 @@ function getSectors(req, res) {
 
 function getSector(req, res) {
   const cityID = req.query.cityID;
+  const beachID = req.query.beachID;
   const sectorID = req.query.sectorID;
 
   Sectors.find({
     cityID: cityID,
+    beachID: beachID,
     sectorID: sectorID,
   }).exec((err, doc) => {
     if (err)
@@ -45,33 +47,7 @@ function getSector(req, res) {
 }
 
 function postSectors(req, res) {
-  // const data = new Sectors();
-
-  // data.cityID = req.body.cityID;
-  // data.city = req.body.city;
-  // data.beachID = req.body.beachID;
-  // data.beach = req.body.beach;
-  // data.sectorID = req.body.sectorID;
-  // data.sector = req.body.sector;
-  // data.description = req.body.description;
-  // data.positionX = req.body.positionX;
-  // data.positionY = req.body.positionY;
-  // data.image1 = req.body.image1;
-  // data.image2 = req.body.image2;
-  // data.cols = req.body.cols;
-  // data.rows = req.body.rows;
-  // data.blocked = req.body.blocked;
-
-  // data.save((err, docStored) => {
-  //   if (err)
-  //     res.status(500).send({
-  //       message: `Error al salvar en la base de datos: ${err} `,
-  //     });
-
-  //   res.status(200).send(docStored._id);
-  // });
-
-  Sectors.insertMany(req.body, function(err, docStored) {
+  Sectors.insertMany(req.body, function (err, docStored) {
     if (err)
       res.status(500).send({
         message: `Error al salvar en la base de datos: ${err} `,
