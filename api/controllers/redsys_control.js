@@ -151,7 +151,18 @@ function sendEmail(params, cart) {
     cart.detail.forEach(item => {
       let data = {
         ITEM: item.date,
-        DESCRIPCION: item.type + ' COL: ' + item.col + ', FIL: ' + item.row,
+        DESCRIPCION:
+          item.city +
+          ' ' +
+          item.beach +
+          ' ' +
+          item.sector +
+          ' ' +
+          item.type +
+          ' COL: ' +
+          item.col +
+          ', FIL: ' +
+          item.row,
         PRECIO: item.price + ' €',
       };
 
