@@ -51,7 +51,7 @@ function paymentPost(req, res) {
 
   const ds_response = Number(result.Ds_Response);
 
-  if (ds_response > 0 || ds_response < 100 || ds_response == 900) {
+  if ((ds_response >= 0 && ds_response < 100) || ds_response == 900) {
     const update = { payed: true };
     Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
       (err, docStored) => {
