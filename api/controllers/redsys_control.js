@@ -44,25 +44,30 @@ async function getMakeParameters(req, res) {
   }
 }
 
-function successPaymentPost(req, res) {
+function paymentPost(req, res) {
   const merchantParams = req.body.Ds_MerchantParameters;
   const signature = req.body.Ds_Signature;
   const result = redsys.checkResponseParameters(merchantParams, signature);
-  console.log(result);
 
-  const update = { payed: true };
-  Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
-    (err, docStored) => {
-      if (err)
-        res.status(500).send({
-          message: `Error al salvar en la base de datos: ${err} `,
-        });
-      res.status(200).send(docStored);
-    }
-  );
+  const ds_response = Number(result.Ds_Response);
+
+  if (ds_response > 0 || ds_response < 100 || ds_response == 900) {
+    const update = { payed: true };
+    Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
+      (err, docStored) => {
+        if (err)
+          res.status(500).send({
+            message: `Error al salvar en la base de datos: ${err} `,
+          });
+        res.status(200).send(docStored);
+      }
+    );
+  } else {
+    res.status(200).send(result.Ds_Response);
+  }
 }
 
 module.exports = {
   getMakeParameters,
-  successPaymentPost,
+  paymentPost,
 };
