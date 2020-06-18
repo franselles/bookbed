@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.50",
+  "version": "0.3.51",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -17,6 +17,7 @@
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^3.23.1",
     "jsonwebtoken": "^8.5.1",
     "mailgen": "^2.0.13",
     "mailgun-js": "^0.22.0",
