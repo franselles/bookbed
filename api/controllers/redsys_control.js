@@ -48,6 +48,8 @@ function successPaymentPost(req, res) {
   const merchantParams = req.body.Ds_MerchantParameters;
   const signature = req.body.Ds_Signature;
   const result = redsys.checkResponseParameters(merchantParams, signature);
+  console.log(result);
+
   const update = { payed: true };
   Carts.findOneAndUpdate({ ticketID: result.Ds_Order }, update).exec(
     (err, docStored) => {
