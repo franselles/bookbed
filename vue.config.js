@@ -7,7 +7,7 @@ module.exports = {
     background_color: '#e7e552',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
-    display: 'standalone',
+    display: 'minimal-ui',
     orientation: 'portrait',
     workboxOptions: {
       skipWaiting: true,
