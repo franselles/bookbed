@@ -4,9 +4,11 @@ const Items = require('../models/items_model');
 
 function getItemsCitySector(req, res) {
   const cityID = req.query.cityID;
+  const beachID = req.query.beachID;
   const sectorID = req.query.sectorID;
   Items.find({
     cityID: cityID,
+    beachID: beachID,
     sectorID: sectorID,
   }).exec((err, doc) => {
     if (err)
@@ -24,6 +26,7 @@ function getItemsCitySector(req, res) {
 
 function getItem(req, res) {
   const cityID = req.query.cityID;
+  const beachID = req.query.beachID;
   const sectorID = req.query.sectorID;
   const typeID = req.query.typeID;
   const col = req.query.col;
@@ -31,6 +34,7 @@ function getItem(req, res) {
   Items.find({
     cityID: cityID,
     sectorID: sectorID,
+    beachID: beachID,
     typeID: typeID,
     col: col,
     row: row,

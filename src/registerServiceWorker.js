@@ -21,8 +21,6 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated() {
       console.log('New content is available; please refresh.');
-      alert('NUEVA VERSION INSTALADA \n CIERRRE Y ABRA LA APLICACION');
-      window.location.reload(true);
     },
     offline() {
       console.log(
