@@ -58,6 +58,11 @@ api.get('/sector', middlewareRouter, sectorsControl.getSector);
 api.get('/items', middlewareRouter, itemsControl.getItemsCitySector);
 api.get('/item', middlewareRouter, itemsControl.getItem);
 api.post('/items', middlewareRouter, itemsControl.postItems);
+api.get(
+  '/statesectoritems',
+  middlewareRouter,
+  itemsControl.getStateSectorItems
+);
 
 //  Users check, token and cookie
 // api.post('/login', usersControl.postUsersToken);

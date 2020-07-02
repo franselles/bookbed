@@ -199,6 +199,28 @@ export default {
         console.log(error);
       }
     },
+
+    async getStateSectorItems(context, payload) {
+      try {
+        const data = await Vue.axios({
+          method: 'get',
+          url: 'statesectoritems',
+          params: {
+            cityID: payload.cityID,
+            beachID: payload.beachID,
+            sectorID: payload.sectorID,
+            typeID: payload.typeID,
+            date: payload.date,
+          },
+        });
+        if (data.data) {
+          // await commit('setStateSector', data.data);
+          return data.data;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   getters: {},
 };

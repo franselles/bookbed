@@ -1,6 +1,8 @@
 'use strict';
 
 const Items = require('../models/items_model');
+const Sectors = require('../models/sectors_model');
+const Filled = require('./filled_control');
 
 function getItemsCitySector(req, res) {
   const cityID = req.query.cityID;
@@ -63,8 +65,54 @@ function postItems(req, res) {
   });
 }
 
+async function getStateSectorItems(req, res) {
+  const querystring = {
+    cityID: req.query.cityID,
+    beachID: req.query.beachID,
+    sectorID: req.query.sectorID,
+    // typeID: req.query.typeID,
+    date: req.query.date,
+  };
+
+  try {
+    let i = await Filled.getItems(querystring);
+    let c = await Filled.getCarts(querystring);
+
+    i.forEach(item => {
+      item.filled = 0;
+      c.forEach(cart => {
+        if (cart.col === item.col && cart.row === item.row) {
+          item.filled = 1;
+        }
+      });
+    });
+
+    const sectors = await Sectors.findOne({
+      cityID: querystring.cityID,
+      beachID: querystring.beachID,
+      sectorID: querystring.sectorID,
+    }).exec();
+
+    let line = [];
+    let tempoSector = [];
+
+    for (let c = 0; c < i.length; c++) {
+      line.push(i[c]);
+      if ((c + 1) % sectors.rows == 0) {
+        tempoSector.push(line);
+        line = [];
+      }
+    }
+
+    return res.status(200).send(tempoSector);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getItemsCitySector,
   getItem,
   postItems,
+  getStateSectorItems,
 };

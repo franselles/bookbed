@@ -149,4 +149,6 @@ function getStock(req, res) {
 module.exports = {
   getFilled,
   getStock,
+  getItems,
+  getCarts,
 };
