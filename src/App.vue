@@ -1,40 +1,28 @@
 <template>
-  <section id="app" class="section">
-    <router-view />
-  </section>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="APP Reservas hamcacas playasbenidorm.app" />
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
+import HelloWorld from './components/HelloWorld.vue';
 
 export default {
-  mounted() {
-    axios.interceptors.request.use(
-      config => {
-        axios.defaults.headers.common['authorization'] =
-          'Bearer ' + sessionStorage.getItem('user-token');
-        return config;
-      },
-      error => {
-        return Promise.reject(error);
-      }
-    );
-
-    axios.interceptors.response.use(
-      response => {
-        return response;
-      },
-      error => {
-        if (401 === error.response.status) {
-          this.$store.commit('usersStore', 'setLogout');
-          this.$router.push({ name: 'login' });
-        } else {
-          return Promise.reject(error);
-        }
-      }
-    );
+  name: 'App',
+  components: {
+    HelloWorld,
   },
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

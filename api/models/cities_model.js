@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const citiesSchema = Schema(
+const citiesSchema = new Schema(
   {
     cityID: { type: Number },
     city: { type: String, uppercase: true },

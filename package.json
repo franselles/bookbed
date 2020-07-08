@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.56",
+  "version": "0.3.57",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,10 +9,8 @@
     "local": "nodemon server.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
-    "buefy": "^0.8.20",
     "core-js": "^3.6.4",
     "cors": "^2.8.5",
     "dayjs": "^1.8.28",
@@ -23,20 +21,12 @@
     "mailgen": "^2.0.13",
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.9.19",
-    "qrcode.vue": "^1.7.0",
     "redsys-pos": "^1.0.2",
-    "register-service-worker": "^1.7.1",
-    "vue": "^2.6.11",
-    "vue-axios": "^2.1.5",
-    "vue-router": "^3.3.4",
-    "vuex": "^3.4.0"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.4",
     "@vue/cli-plugin-eslint": "^4.4.4",
-    "@vue/cli-plugin-pwa": "^4.4.4",
-    "@vue/cli-plugin-router": "^4.4.4",
-    "@vue/cli-plugin-vuex": "^4.4.4",
     "@vue/cli-service": "^4.4.4",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",

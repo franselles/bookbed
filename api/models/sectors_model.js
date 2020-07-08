@@ -3,7 +3,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const sectorsSchema = Schema(
+const itemSchema = new Schema({
+  typeID: { type: Number },
+  type: { type: String, uppercase: true },
+  price: { type: Number },
+  quantity: { type: Number },
+});
+
+const sectorsSchema = new Schema(
   {
     cityID: { type: Number },
     city: { type: String, uppercase: true },
@@ -16,9 +23,8 @@ const sectorsSchema = Schema(
     positionY: { type: Number },
     image1: { type: String },
     image2: { type: String },
-    cols: { type: Number },
-    rows: { type: Number },
     blocked: { type: Boolean },
+    items: [itemSchema],
   },
   { collection: 'sectors' }
 );

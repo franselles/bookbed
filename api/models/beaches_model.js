@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const beachesSchema = Schema(
+const beachesSchema = new Schema(
   {
     beachID: { type: Number },
     beach: { type: String, uppercase: true },

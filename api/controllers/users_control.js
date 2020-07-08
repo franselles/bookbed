@@ -1,4 +1,5 @@
 'use strict';
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -231,8 +232,8 @@ function postUser(req, res) {
 }
 
 function getUser(req, res) {
-  const email = req.query.email;
-  const password = req.query.password;
+  const email = req.body.email;
+  const password = req.body.password;
 
   Users.find({
     email: email,

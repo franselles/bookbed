@@ -14,13 +14,11 @@ const detailSchema = new Schema({
   typeID: { type: Number },
   type: { type: String, uppercase: true },
   itemID: { type: String, uppercase: true },
-  col: { type: Number },
-  row: { type: Number },
+  quantity: { type: Number },
   price: { type: Number },
   codeID: { type: String, uppercase: true },
   used: { type: Boolean },
   dateTimeUsed: { type: String },
-  numberItem: { type: Number },
 });
 
 const cartsSchema = new Schema(

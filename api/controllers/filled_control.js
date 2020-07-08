@@ -1,25 +1,37 @@
 'use strict';
 
-const Items = require('../models/items_model');
+const Sectors = require('../models/sectors_model');
 const Carts = require('../models/carts_model');
 
-async function getItems(querystring) {
-  return await Items.find({
-    cityID: Number(querystring.cityID),
-    beachID: Number(querystring.beachID),
-    sectorID: Number(querystring.sectorID),
-    // typeID: Number(querystring.typeID),
-  })
-    .sort({ col: 1, row: 1 })
-    .exec();
+async function getSector(querystring) {
+  return await Sectors.aggregate([
+    {
+      $match: {
+        cityID: Number(querystring.cityID),
+        beachID: Number(querystring.beachID),
+        sectorID: Number(querystring.sectorID),
+      },
+
+      // typeID: querystring.typeID,
+    },
+    { $unwind: '$items' },
+    {
+      $match: {
+        'items.typeID': Number(querystring.typeID),
+      },
+    },
+    {
+      $project: {
+        typeID: '$items.typeID',
+        type: '$items.type',
+        price: '$items.price',
+        quantity: '$items.quantity',
+      },
+    },
+  ]).exec();
 }
 
-// 'detail.cityID': querystring.cityID,
-// 'detail.sectorID': querystring.sectorID,
-// 'detail.typeID': querystring.typeID,
-// 'detail.date': querystring.date,
-
-async function getCarts(querystring) {
+async function getCartsSector(querystring) {
   return await Carts.aggregate([
     {
       $match: {
@@ -32,123 +44,147 @@ async function getCarts(querystring) {
         'detail.cityID': Number(querystring.cityID),
         'detail.beachID': Number(querystring.beachID),
         'detail.sectorID': Number(querystring.sectorID),
-        // 'detail.typeID': Number(querystring.typeID),
+        'detail.typeID': Number(querystring.typeID),
         'detail.date': querystring.date,
       },
     },
-    { $sort: { 'detail.col': -1, 'detail.row': 1 } },
     {
-      $project: {
-        date: '$detail.date',
-        cityID: '$detail.cityID',
-        city: '$detail.city',
-        beachID: '$detail.beachID',
-        beach: '$detail.beach',
-        sectorID: '$detail.sectorID',
-        sector: '$detail.sector',
-        typeID: '$detail.typeID',
-        type: '$detail.type',
-        itemID: '$detail.itemID',
-        col: '$detail.col',
-        row: '$detail.row',
-        price: '$detail.price',
-        used: '$detail.used',
-        dateTimeUsed: '$detail.dateTimeUsed',
-        numberItem: '$detail.numberItem',
-      },
+      $count: 'quantity_shell',
     },
   ]).exec();
 }
 
-async function getFilled(req, res) {
+async function getFilledSector(req, res) {
   const querystring = {
     cityID: req.query.cityID,
     beachID: req.query.beachID,
     sectorID: req.query.sectorID,
-    // typeID: req.query.typeID,
+    typeID: req.query.typeID,
     date: req.query.date,
   };
 
   try {
-    let i = await getItems(querystring);
-    let c = await getCarts(querystring);
+    let i = await getSector(querystring);
+    let c = await getCartsSector(querystring);
 
-    i.forEach(item => {
-      item.filled = 0;
-      c.forEach(cart => {
-        if (cart.col === item.col && cart.row === item.row) {
-          item.filled = 1;
-        }
-      });
-    });
-    return res.status(200).send(i);
+    let resp = {
+      date: req.query.date,
+      cityID: Number(req.query.cityID),
+      beachID: Number(req.query.beachID),
+      sectorID: Number(req.query.sectorID),
+      typeID: i[0].typeID,
+      type: i[0].type,
+      price: i[0].price,
+      quantity: i[0].quantity,
+      quantity_shell: c[0].quantity_shell || 0,
+      available: i[0].quantity - c[0].quantity_shell || 0,
+    };
+
+    console.log(resp);
+
+    return res.status(200).send(resp);
   } catch (err) {
     console.log(err);
   }
 }
 
-function getStock(req, res) {
-  const cart = req.body.cart;
+async function getSector2(querystring) {
+  return await Sectors.aggregate([
+    {
+      $match: {
+        cityID: Number(querystring.cityID),
+        beachID: Number(querystring.beachID),
+        sectorID: Number(querystring.sectorID),
+      },
 
-  let exists = [];
-  cart.forEach((element, index) => {
-    Carts.aggregate([
-      {
-        $match: {
-          payed: true,
-        },
+      // typeID: querystring.typeID,
+    },
+    { $unwind: '$items' },
+    {
+      $project: {
+        typeID: '$items.typeID',
+        type: '$items.type',
+        price: '$items.price',
+        quantity: '$items.quantity',
       },
-      { $unwind: '$detail' },
-      {
-        $match: {
-          'detail.cityID': Number(element.cityID),
-          'detail.beachID': Number(element.beachID),
-          'detail.sectorID': Number(element.sectorID),
-          // 'detail.typeID': Number(element.typeID),
-          'detail.date': element.date,
-          'detail.row': element.row,
-          'detail.col': element.col,
-        },
+    },
+  ]).exec();
+}
+
+async function getCartsSector2(querystring) {
+  return await Carts.aggregate([
+    {
+      $match: {
+        payed: true,
       },
-      {
-        $project: {
-          date: '$detail.date',
-          cityID: '$detail.cityID',
-          city: '$detail.city',
-          beachID: '$detail.beachID',
-          beach: '$detail.beach',
-          sectorID: '$detail.sectorID',
-          sector: '$detail.sector',
-          typeID: '$detail.typeID',
-          type: '$detail.type',
-          itemID: '$detail.itemID',
-          col: '$detail.col',
-          row: '$detail.row',
-          price: '$detail.price',
-          filled: '$detail.filled',
-          empty: '$detail.empty',
-          numberItem: '$detail.numberItem',
-        },
+    },
+    { $unwind: '$detail' },
+    {
+      $match: {
+        'detail.cityID': Number(querystring.cityID),
+        'detail.beachID': Number(querystring.beachID),
+        'detail.sectorID': Number(querystring.sectorID),
+        'detail.date': querystring.date,
       },
-    ]).exec((err, doc) => {
-      if (err)
-        return res.status(500).send({
-          message: `Error al realizar la petición: ${err}`,
-        });
-      if (doc.length > 0) {
-        exists.push(doc[0]);
+    },
+    {
+      $group: {
+        _id: '$detail.typeID',
+        quantity_shell: { $sum: '$detail.quantity' },
+      },
+    },
+  ]).exec();
+}
+
+async function getFilledSector2(req, res) {
+  const querystring = {
+    cityID: Number(req.query.cityID),
+    beachID: Number(req.query.beachID),
+    sectorID: Number(req.query.sectorID),
+    date: req.query.date,
+    typeID: '',
+  };
+
+  try {
+    let categories = [];
+    let quantity = 0;
+
+    let i = await getSector2(querystring);
+    let c = await getCartsSector2(querystring);
+
+    i.forEach(async item => {
+      let shelled = c.find(elem => {
+        return elem._id == item.typeID;
+      });
+
+      if (shelled) {
+        quantity = shelled.quantity_shell;
+      } else {
+        quantity = 0;
       }
 
-      if (index == cart.length - 1) {
-        res.status(200).send(exists);
-      }
+      let resp = {
+        date: req.query.date,
+        cityID: Number(req.query.cityID),
+        beachID: Number(req.query.beachID),
+        sectorID: Number(req.query.sectorID),
+        typeID: item.typeID,
+        type: item.type,
+        price: item.price,
+        quantity: item.quantity,
+        quantity_shell: quantity,
+        available: item.quantity - quantity || 0,
+      };
+      categories.push(resp);
     });
-  });
+
+    return res.status(200).send(categories);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports = {
-  getFilled,
-  getStock,
-  getItems,
-  getCarts,
+  getFilledSector,
+  getFilledSector2,
 };
