@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.57",
+  "version": "0.3.58",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,6 +9,7 @@
     "local": "nodemon server.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.4",
