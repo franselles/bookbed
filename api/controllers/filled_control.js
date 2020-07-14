@@ -4,7 +4,6 @@ const Sectors = require('../models/sectors_model');
 const Carts = require('../models/carts_model');
 
 async function getSector(querystring) {
-  console.log(querystring);
   return await Sectors.aggregate([
     {
       $match: {
