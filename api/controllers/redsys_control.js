@@ -132,11 +132,15 @@ function sendEmail(params, cart) {
             // Optionally, customize the column widths
             customWidth: {
               ITEM: '20%',
+              CDAD: '15%',
               PRECIO: '15%',
+              TOTAL: '15%',
             },
             // Optionally, change column text alignment
             customAlignment: {
+              CDAD: 'right',
               PRECIO: 'right',
+              TOTAL: 'right',
             },
           },
         },
@@ -153,21 +157,13 @@ function sendEmail(params, cart) {
       let data = {
         ITEM: item.date,
         DESCRIPCION:
-          item.city +
-          ' ' +
-          item.beach +
-          ' ' +
-          item.sector +
-          ' ' +
-          item.type +
-          ' COL: ' +
-          item.col +
-          ', FIL: ' +
-          item.row,
+          item.city + ' ' + item.beach + ' ' + item.sector + ' ' + item.type,
+        CDAD: item.quantity,
         PRECIO: item.price + ' €',
+        TOTAL: item.quantity * item.price + ' €',
       };
 
-      total += item.price;
+      total += item.quantity * item.price;
 
       email.body.table.data.push(data);
     });
