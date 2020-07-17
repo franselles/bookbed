@@ -27,13 +27,11 @@ api.get('/cities', citiesControl.getCities);
 api.get('/beaches', beachesControl.getBeaches);
 
 // Carts
-api.post('/cartfinal', cartsControl.postCartFinal);
 api.post('/cart', cartsControl.postCart);
 api.post('/check', cartsControl.checkAvaiability);
 api.get('/carts', cartsControl.getCarts);
 api.get('/tickets', cartsControl.getTicketNumber);
 api.get('/detailday', cartsControl.getCartsDetail);
-api.delete('/cart', cartsControl.deleteCartFinal);
 
 // Users
 api.get('/user/email', usersControl.checkEmail);
