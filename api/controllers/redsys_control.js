@@ -79,29 +79,6 @@ function paymentPost(req, res) {
   }
 }
 
-function paymentPost2(req, res) {
-  const order = req.body.order;
-
-  const update = { payed: true };
-
-  Carts.findOneAndUpdate({ ticketID: order }, update).exec((err, docStored) => {
-    if (err)
-      res.status(500).send({
-        message: `Error al salvar en la base de datos: ${err} `,
-      });
-
-    Users.findOne({ userID: docStored.userID }).exec((err, doc) => {
-      if (err)
-        res.status(500).send({
-          message: `Error al salvar en la base de datos: ${err} `,
-        });
-      sendEmail(doc, docStored);
-    });
-
-    res.status(200).send(docStored);
-  });
-}
-
 function sendEmail(params, cart) {
   try {
     const Mailgen = require('mailgen');
@@ -211,5 +188,4 @@ module.exports = {
   getMakeParameters,
   paymentPost,
   sendEmail,
-  paymentPost2,
 };

@@ -400,6 +400,26 @@ function getTicketNumber(req, res) {
   });
 }
 
+function getTicket(req, res) {
+  const ticketID = req.query.id;
+
+  Carts.findOne({
+    ticketID: ticketID,
+    payed: true,
+  }).exec((err, doc) => {
+    if (err)
+      return res.status(500).send({
+        message: `Error al realizar la petición: ${err}`,
+      });
+    if (!doc)
+      return res.status(404).send({
+        message: 'No existe',
+      });
+
+    res.status(200).send(doc);
+  });
+}
+
 module.exports = {
   postCart,
   getCarts,
@@ -411,4 +431,5 @@ module.exports = {
   postUsed,
   checkAvaiability,
   postCartCheck,
+  getTicket,
 };
