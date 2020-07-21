@@ -78,6 +78,16 @@ async function checkAvaiability(req, res) {
   }
 }
 
+function generateUUID(s) {
+  let d = new Date().getTime();
+  const uuid = s.replace(/[xy]/g, function (c) {
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
+  return uuid;
+}
+
 async function postCartCheck(req, res) {
   try {
     const check = await checkAvaiabilityFunction(req.body);
@@ -93,7 +103,7 @@ async function postCartCheck(req, res) {
       data.date = req.body.date;
       data.userID = req.body.userID;
       data.phone = req.body.phone;
-      data.ticketID = ('00000000' + nt).slice(-8);
+      data.ticketID = generateUUID('xxx') + ('00000000' + nt).slice(-8);
       // data.ticketID = req.body.ticketID;
       data.canceled = req.body.canceled;
       data.payed = true;

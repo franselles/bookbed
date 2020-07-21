@@ -79,9 +79,11 @@ export default {
       this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
       this.Ds_Signature = Ds_pay.data.Ds_Signature;
 
-      setTimeout(() => {
-        this.$refs.form.submit();
-      }, 9000);
+      console.log(Ds_pay);
+
+      // setTimeout(() => {
+      //   this.$refs.form.submit();
+      // }, 2000);
     },
   },
 };
