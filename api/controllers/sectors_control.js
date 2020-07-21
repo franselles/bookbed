@@ -23,6 +23,18 @@ function getSectors(req, res) {
   });
 }
 
+function getSectorFunction(cityID, beachID, sectorID) {
+  return new Promise(resolve => {
+    Sectors.findOne({
+      cityID: cityID,
+      beachID: beachID,
+      sectorID: sectorID,
+    }).exec((err, doc) => {
+      resolve(doc);
+    });
+  });
+}
+
 function getSector(req, res) {
   const cityID = req.query.cityID;
   const beachID = req.query.beachID;
@@ -57,4 +69,4 @@ function postSectors(req, res) {
   });
 }
 
-module.exports = { postSectors, getSectors, getSector };
+module.exports = { postSectors, getSectors, getSector, getSectorFunction };

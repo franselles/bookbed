@@ -4,6 +4,7 @@ const dayjs = require('dayjs');
 
 const Carts = require('../models/carts_model');
 const { getCheckFilled } = require('./filled_control');
+const { getSectorFunction } = require('./sectors_control');
 
 function postUsed(req, res) {
   const id = req.body.id;
@@ -106,11 +107,21 @@ async function postCartCheck(req, res) {
       data.ticketID = generateUUID('xxx') + '-' + ('00000000' + nt).slice(-8);
       // data.ticketID = req.body.ticketID;
       data.canceled = req.body.canceled;
-      data.payed = true;
+      data.payed = false;
       data.lang = req.body.lang;
       data.payMethod = req.body.payMethod;
       data.detail = req.body.detail;
-
+      data.coupon = req.body.coupon;
+      for (const iterator of data.detail) {
+        let sector = await getSectorFunction(
+          iterator.cityID,
+          iterator.beachID,
+          iterator.sectorID
+        );
+        iterator.city = sector.city;
+        iterator.beach = sector.beach;
+        iterator.sector = sector.sector;
+      }
       data.save((err, docStored) => {
         if (err)
           res.status(500).send({
@@ -146,7 +157,10 @@ async function postCart(req, res) {
     data.ticketID = req.body.ticketID;
     data.canceled = req.body.canceled;
     data.payed = true;
+    data.lang = req.body.lang;
+    data.payMethod = req.body.payMethod;
     data.detail = req.body.detail;
+    data.coupon = req.body.coupon;
 
     data.save(err => {
       if (err)
@@ -415,7 +429,7 @@ function getTicket(req, res) {
 
   Carts.findOne({
     ticketID: ticketID,
-    payed: true,
+    payed: false,
   }).exec((err, doc) => {
     if (err)
       return res.status(500).send({

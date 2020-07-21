@@ -80,7 +80,7 @@ export default {
 
       setTimeout(() => {
         this.$refs.form.submit();
-      }, 2000);
+      }, 1000);
     },
   },
 };
