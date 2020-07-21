@@ -37,7 +37,6 @@ export default {
 
   mounted() {
     this.id = this.$route.query.id;
-    console.log(this.id);
     this.sendPay();
   },
 
@@ -79,11 +78,9 @@ export default {
       this.Ds_MerchantParameters = Ds_pay.data.Ds_MerchantParameters;
       this.Ds_Signature = Ds_pay.data.Ds_Signature;
 
-      console.log(Ds_pay);
-
-      // setTimeout(() => {
-      //   this.$refs.form.submit();
-      // }, 2000);
+      setTimeout(() => {
+        this.$refs.form.submit();
+      }, 2000);
     },
   },
 };

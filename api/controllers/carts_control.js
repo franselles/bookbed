@@ -103,7 +103,7 @@ async function postCartCheck(req, res) {
       data.date = req.body.date;
       data.userID = req.body.userID;
       data.phone = req.body.phone;
-      data.ticketID = generateUUID('xxx') + ('00000000' + nt).slice(-8);
+      data.ticketID = generateUUID('xxx') + '-' + ('00000000' + nt).slice(-8);
       // data.ticketID = req.body.ticketID;
       data.canceled = req.body.canceled;
       data.payed = true;
