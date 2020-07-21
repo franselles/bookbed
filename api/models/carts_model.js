@@ -19,6 +19,7 @@ const detailSchema = new Schema({
   codeID: { type: String, uppercase: true },
   used: { type: Boolean },
   dateTimeUsed: { type: String },
+  numberItem: { type: Number },
 });
 
 const cartsSchema = new Schema(
@@ -30,6 +31,9 @@ const cartsSchema = new Schema(
     canceled: { type: Boolean },
     payed: { type: Boolean },
     detail: [detailSchema],
+    lang: { type: String },
+    payMethod: { type: Number },
+    coupon: { type: String },
   },
   { collection: 'carts' }
 );

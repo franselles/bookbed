@@ -96,19 +96,30 @@ async function postCartCheck(req, res) {
       data.ticketID = ('00000000' + nt).slice(-8);
       // data.ticketID = req.body.ticketID;
       data.canceled = req.body.canceled;
-      data.payed = false;
+      data.payed = true;
+      data.lang = req.body.lang;
+      data.payMethod = req.body.payMethod;
       data.detail = req.body.detail;
 
-      data.save(err => {
+      data.save((err, docStored) => {
         if (err)
           res.status(500).send({
             message: `Error al salvar en la base de datos: ${err} `,
           });
 
-        res.status(200).send(true);
+        res.status(200).send({
+          success: true,
+          data: {
+            id: docStored.ticketID,
+          },
+        });
       });
     } else {
-      res.status(200).send(check);
+      res.status(200).send({
+        success: false,
+        code: 1,
+        data: check,
+      });
     }
   } catch (error) {
     return res.status(404).send(error);
