@@ -9,18 +9,20 @@ function getSectors(req, res) {
   Sectors.find({
     cityID: cityID,
     beachID: beachID,
-  }).exec((err, doc) => {
-    if (err)
-      return res.status(500).send({
-        message: `Error al realizar la petición: ${err}`,
-      });
-    if (doc.length == 0)
-      return res.status(404).send({
-        message: 'No existe',
-      });
+  })
+    .sort({ sectorID: 1 })
+    .exec((err, doc) => {
+      if (err)
+        return res.status(500).send({
+          message: `Error al realizar la petición: ${err}`,
+        });
+      if (doc.length == 0)
+        return res.status(404).send({
+          message: 'No existe',
+        });
 
-    res.status(200).send(doc);
-  });
+      res.status(200).send(doc);
+    });
 }
 
 function getSectorFunction(cityID, beachID, sectorID) {

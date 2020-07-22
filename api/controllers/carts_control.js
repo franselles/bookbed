@@ -175,67 +175,6 @@ async function postCart(req, res) {
   }
 }
 
-function getStock(cart) {
-  let exists = [];
-
-  try {
-    return new Promise(function (resolve) {
-      cart.detail.forEach((element, index) => {
-        Carts.aggregate([
-          {
-            $match: {
-              payed: true,
-            },
-          },
-          { $unwind: '$detail' },
-          {
-            $match: {
-              'detail.cityID': Number(element.cityID),
-              'detail.beachID': Number(element.beachID),
-              'detail.sectorID': Number(element.sectorID),
-              'detail.typeID': Number(element.typeID),
-              'detail.date': element.date,
-              'detail.row': element.row,
-              'detail.col': element.col,
-            },
-          },
-          {
-            $project: {
-              date: '$detail.date',
-              cityID: '$detail.cityID',
-              city: '$detail.city',
-              beachID: '$detail.beachID',
-              beach: '$detail.beach',
-              sectorID: '$detail.sectorID',
-              sector: '$detail.sector',
-              typeID: '$detail.typeID',
-              type: '$detail.type',
-              itemID: '$detail.itemID',
-              col: '$detail.col',
-              row: '$detail.row',
-              price: '$detail.price',
-              used: '$detail.used',
-              dateTimeUsed: '$detail.dateTimeUsed',
-              numberItem: '$detail.numberItem',
-            },
-          },
-        ]).exec((err, doc) => {
-          if (err) return { error: 500 };
-          if (doc.length > 0) {
-            exists.push(doc[0]);
-          }
-
-          if (index == cart.detail.length - 1) {
-            resolve(exists);
-          }
-        });
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function getCarts(req, res) {
   const userID = req.query.userID;
 
@@ -449,7 +388,6 @@ module.exports = {
   getCarts,
   getTicketNumber,
   getCartsDetail,
-  getStock,
   getItemUserDetail,
   getItemUser,
   postUsed,
