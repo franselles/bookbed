@@ -39,7 +39,7 @@ api.get('/user/email', usersControl.checkEmail);
 api.get('/user/id', usersControl.getUserID);
 api.post('/userreg', usersControl.getUser);
 api.get('/userid', usersControl.getUserById);
-api.post('/user', usersControl.postUser);
+api.post('/user', usersControl.postUser2);
 api.post('/recovery', usersControl.checkEmailRecovery);
 api.get('/recovery', usersControl.checkTokenPass);
 api.post('/updated', usersControl.updatePassword);

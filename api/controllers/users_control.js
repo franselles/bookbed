@@ -206,14 +206,16 @@ async function postUser2(req, res) {
       return res.status(200).send({
         success: false,
         data: {
-          id: 35,
+          code: 1,
+          message: 'Correo ya existe',
         },
       });
     } else if (phone.length > 0) {
       return res.status(200).send({
         success: false,
         data: {
-          id: 40,
+          code: 2,
+          message: 'Telefono ya existe',
         },
       });
     } else {
@@ -257,12 +259,14 @@ async function postUser2(req, res) {
 
             return res.status(200).send({
               success: true,
-              _id: docStored._id,
-              name: docStored.name,
-              phone: docStored.phone,
-              userID: docStored.userID,
-              auxID: docStored.userID,
-              token: token,
+              data: {
+                id: docStored._id,
+                name: docStored.name,
+                phone: docStored.phone,
+                userID: docStored.userID,
+                auxID: docStored.userID,
+                token: token,
+              },
             });
           });
         })
