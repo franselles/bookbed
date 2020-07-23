@@ -12,6 +12,11 @@ const baseURL = '/api/v1';
 axios.defaults.baseURL = baseURL;
 axios.defaults.json = true;
 
+import Buefy from 'buefy';
+import 'buefy/dist/buefy.css';
+
+Vue.use(Buefy);
+
 Vue.config.productionTip = false;
 
 new Vue({
