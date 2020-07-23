@@ -15,9 +15,9 @@ const routes = [
     component: () => import('@/views/Newpass.vue'),
   },
   {
-    path: '/recoverypass',
-    name: 'recoverypass',
-    component: () => import('@/views/Recoverypass.vue'),
+    path: '/recoverpass',
+    name: 'recoverpass',
+    component: () => import('@/views/Recoverpass.vue'),
   },
   {
     path: '/payOrder',
