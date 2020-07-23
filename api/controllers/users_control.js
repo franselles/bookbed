@@ -175,6 +175,108 @@ function checkTokenPass(req, res) {
   }
 }
 
+function checkEmailFunction(data) {
+  const email = data;
+  return new Promise(resolve => {
+    Users.find({
+      email: email,
+    }).exec((err, doc) => {
+      resolve(doc);
+    });
+  });
+}
+
+function checkPhoneFunction(data) {
+  const phone = data;
+  return new Promise(resolve => {
+    Users.find({
+      phone: phone,
+    }).exec((err, doc) => {
+      resolve(doc);
+    });
+  });
+}
+
+async function postUser2(req, res) {
+  try {
+    const email = await checkEmailFunction(req.body.email);
+    const phone = await checkPhoneFunction(req.body.phone);
+
+    if (email.length > 0) {
+      return res.status(200).send({
+        success: false,
+        data: {
+          id: 35,
+        },
+      });
+    } else if (phone.length > 0) {
+      return res.status(200).send({
+        success: false,
+        data: {
+          id: 40,
+        },
+      });
+    } else {
+      const data = new Users();
+
+      const date = new Date();
+
+      data.name = req.body.name;
+      data.email = req.body.email;
+      data.password = req.body.password;
+      data.phone = req.body.phone;
+      data.date = date.toISOString().split('T')[0];
+      data.banned = false;
+      data.bannedDate = null;
+      // data.userID = req.body.phone.slice(-4) + generateUUID('xxyx');
+      data.userID = req.body.phone;
+      data.auxID = req.body.auxID;
+      data.tokenRecovery = null;
+
+      bcrypt
+        .hash(data.password, Number(process.env.BCRYPT_SALT_ROUNDS))
+        .then(function (hashedPassword) {
+          data.password = hashedPassword;
+          data.save((err, docStored) => {
+            if (err)
+              res.status(500).send({
+                message: `Error al salvar en la base de datos: ${err} `,
+              });
+
+            const tokenData = {
+              name: docStored.toObject().name,
+              password: docStored.toObject().password,
+              date: Date.now(),
+              // ANY DATA
+            };
+
+            // Create TOKEN
+            const token = jwt.sign(tokenData, process.env.KEY, {
+              expiresIn: 60 * 60, // expires in 60 minutes
+            });
+
+            return res.status(200).send({
+              success: true,
+              _id: docStored._id,
+              name: docStored.name,
+              phone: docStored.phone,
+              userID: docStored.userID,
+              auxID: docStored.userID,
+              token: token,
+            });
+          });
+        })
+        .catch(function (err) {
+          return res.status(500).send({
+            message: `Error al realizar la petición: ${err}`,
+          });
+        });
+    }
+  } catch (error) {
+    return res.status(404).send(error);
+  }
+}
+
 function postUser(req, res) {
   const data = new Users();
 
@@ -393,4 +495,5 @@ module.exports = {
   checkEmailRecovery,
   updatePassword,
   getUserById,
+  postUser2,
 };
