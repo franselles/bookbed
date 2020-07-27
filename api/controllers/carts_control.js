@@ -208,10 +208,10 @@ function getCartsDetail(req, res) {
     {
       $match: {
         userID: userID,
-        'detail.date': { $gte: date },
+        'detail.date': date,
       },
     },
-    { $sort: { 'detail.date': 1, col: 1, row: 1 } },
+    { $sort: { 'detail.typeID': 1 } },
     {
       $project: {
         date: '$detail.date',
@@ -224,8 +224,7 @@ function getCartsDetail(req, res) {
         typeID: '$detail.typeID',
         type: '$detail.type',
         itemID: '$detail.itemID',
-        col: '$detail.col',
-        row: '$detail.row',
+        quantity: '$detail.quantity',
         price: '$detail.price',
         used: '$detail.used',
         dateTimeUsed: '$detail.dateTimeUsed',
@@ -282,7 +281,6 @@ function getItemUserDetail(req, res) {
         'detail._id': ObjectId(id),
       },
     },
-    { $sort: { 'detail.date': 1, col: 1, row: 1 } },
     {
       $project: {
         _id: '$detail._id',
@@ -296,8 +294,7 @@ function getItemUserDetail(req, res) {
         typeID: '$detail.typeID',
         type: '$detail.type',
         itemID: '$detail.itemID',
-        col: '$detail.col',
-        row: '$detail.row',
+        quantity: '$detail.quantity',
         price: '$detail.price',
         used: '$detail.used',
         dateTimeUsed: '$detail.dateTimeUsed',

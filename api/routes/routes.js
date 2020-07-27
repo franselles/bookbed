@@ -22,6 +22,7 @@ api.post('/successpost', redsysControl.paymentPost);
 
 // Cities
 api.get('/cities', citiesControl.getCities);
+api.get('/getSection/privacy', citiesControl.getPrivacy);
 
 // Beaches
 api.get('/beaches', beachesControl.getBeaches);
