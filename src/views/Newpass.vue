@@ -80,11 +80,11 @@ export default {
   },
 
   methods: {
-    async updatePassword(context, payload) {
+    async updatePassword(payload) {
       try {
         const data = await axios({
           method: 'post',
-          url: '/api/v1/updated',
+          url: 'updated',
           data: payload,
         });
 
@@ -94,11 +94,11 @@ export default {
       }
     },
 
-    async checkTokenPass(context, payload) {
+    async checkTokenPass(payload) {
       try {
         const data = await axios({
           method: 'get',
-          url: '/api/v1/recovery',
+          url: 'recovery',
           params: {
             tokenRecovery: payload.token,
           },

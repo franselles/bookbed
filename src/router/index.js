@@ -10,7 +10,7 @@ const routes = [
     component: () => import('@/views/Home.vue'),
   },
   {
-    path: '/newpass',
+    path: '/newpass/:token',
     name: 'newpass',
     component: () => import('@/views/Newpass.vue'),
   },
