@@ -95,6 +95,8 @@ function sendEmail(params, cart) {
 
     const email = {
       body: {
+        greeting: 'Hola',
+        signature: 'Atentamente',
         title: `HOLA ${params.name}, GRACIAS POR ALQUILAR NUESTRAS HAMACAS.`,
         intro: [
           'Ticket de compra.',

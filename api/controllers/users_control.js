@@ -90,6 +90,8 @@ function sendEmail2(params) {
     // Prepare email contents
     const email = {
       body: {
+        greeting: 'Hola',
+        signature: 'Atentamente',
         name: params.name,
         intro: `Recibió este correo electrónico porque se recibió
          una solicitud de restablecimiento de contraseña para su cuenta.`,
