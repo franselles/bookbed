@@ -34,6 +34,11 @@ const routes = [
     name: 'success',
     component: () => import('@/views/Success.vue'),
   },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import('@/views/Privacy.vue'),
+  },
 ];
 
 const router = new VueRouter({
