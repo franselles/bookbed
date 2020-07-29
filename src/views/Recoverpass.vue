@@ -47,10 +47,10 @@ export default {
         const data = await axios({
           method: 'post',
           url: 'recovery',
-          data: this.emailLocal,
+          data: { email: this.emailLocal },
         });
 
-        if (data.data == '') {
+        if (data.data.data === 'error') {
           this.error = true;
         } else {
           this.correct = true;

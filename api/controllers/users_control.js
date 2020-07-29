@@ -176,20 +176,18 @@ async function checkEmailRecovery(req, res) {
       },
       { tokenRecovery: token }
     ).exec();
-
     if (user) {
       await sendEmail2({ email: email, name: user.name, token: token });
       return res.status(200).send({ data: 'ok' });
+    } else {
+      res.status(200).send({ data: 'error' });
     }
-    res.status(200).send({ data: '' });
   } catch (error) {
     console.log(error);
   }
 }
 
 function updatePassword(req, res) {
-  console.log(req.body);
-
   let password = req.body.password;
   const tokenRecovery = req.body.tokenRecovery;
 
