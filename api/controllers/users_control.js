@@ -73,19 +73,51 @@ function checkEmail(req, res) {
   });
 }
 
-function sendEmail(params) {
-  const api_key = process.env.MAILGUN_API_KEY;
-  const domain = process.env.MAILGUN_DOMAIN;
-  const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
+function sendEmail2(params) {
   try {
+    const Mailgen = require('mailgen');
+
+    const mailGenerator = new Mailgen({
+      theme: 'default',
+      product: {
+        // Appears in header & footer of e-mails
+        name: 'playasbenidorm.app',
+        link: 'https://playasbenidorm.app/',
+        copyright: 'Copyright © 2020 R.A. BENIDORM S.L.',
+      },
+    });
+
+    // Prepare email contents
+    const email = {
+      body: {
+        name: params.name,
+        intro: `Recibió este correo electrónico porque se recibió
+         una solicitud de restablecimiento de contraseña para su cuenta.`,
+        action: {
+          instructions:
+            'Haga clic en el botón de abajo para restablecer su contraseña:',
+          button: {
+            color: '#DC4D2F',
+            text: 'Restablecer su contraseña',
+            link: `https://playasbenidorm.app/#/newpass/${params.token}`,
+          },
+        },
+        outro:
+          'Si no solicitó un restablecimiento de contraseña, no se requiere ninguna otra acción de su parte.',
+      },
+    };
+
+    const emailBody = mailGenerator.generate(email);
+
+    const api_key = process.env.MAILGUN_API_KEY;
+    const domain = process.env.MAILGUN_DOMAIN;
+    const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
+
     const data = {
       from: 'app@playasbenidorm.es',
       to: params.email,
-      subject: 'Recuperación de contraseña - playasbenidorm.app',
-      html: `<html><head></head><body>Pulse el siguiente enlace para crear nuevas contraseñas
-      <a href="https://playasbenidorm.app/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
-      <p>Si tiene dudas o necesita información diríjase a app@playasbenidorm.es</p>
-      </body></html>`,
+      subject: `Recuperación de contraseña - playasbenidorm.app`,
+      html: emailBody,
     };
 
     //const result = await mailgun.messages().send(data);
@@ -102,6 +134,35 @@ function sendEmail(params) {
   }
 }
 
+// function sendEmail(params) {
+//   const api_key = process.env.MAILGUN_API_KEY;
+//   const domain = process.env.MAILGUN_DOMAIN;
+//   const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
+//   try {
+//     const data = {
+//       from: 'app@playasbenidorm.es',
+//       to: params.email,
+//       subject: 'Recuperación de contraseña - playasbenidorm.app',
+//       html: `<html><head></head><body>Pulse el siguiente enlace para crear nuevas contraseñas
+//       <a href="https://playasbenidorm.app/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
+//       <p>Si tiene dudas o necesita información diríjase a app@playasbenidorm.es</p>
+//       </body></html>`,
+//     };
+
+//     //const result = await mailgun.messages().send(data);
+//     return new Promise(function (resolve) {
+//       mailgun.messages().send(data, function (error, body) {
+//         // console.log(body);
+//         resolve(body);
+//       });
+//     });
+
+//     // return result;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 async function checkEmailRecovery(req, res) {
   const email = req.body.email;
   const token = generateUUID('xxxxyxxxxx');
@@ -115,7 +176,7 @@ async function checkEmailRecovery(req, res) {
     ).exec();
 
     if (user) {
-      await sendEmail({ email: email, token: token });
+      await sendEmail2({ email: email, name: user.name, token: token });
       return res.status(200).send({ data: 'ok' });
     }
     res.status(200).send({ data: '' });
