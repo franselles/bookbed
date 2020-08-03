@@ -1,19 +1,22 @@
 <template>
   <div>
     <!-- MainMenu-Area -->
-    <nav class="mainmenu-area hidden-xs" data-spy="affix" data-offset-top="200">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse pull-right" id="primary_menu">
-          <ul class="nav navbar-nav mainmenu">
-            <li class="active"><a href="#descarga">Descarga</a></li>
-            <li><a href="#about_page">Playas Benidorm</a></li>
-            <li><a href="#metodos">Métodos de pago</a></li>
-            <li><a href="#como">Cómo funciona</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <b-navbar toggleable="lg" type="dark" variant="info" fixed="top">
+      <b-navbar-brand href="#">PLAYASBENIDORM.APP</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item href="#descarga">Descarga</b-nav-item>
+          <b-nav-item href="#about_page">Playas Benidorm</b-nav-item>
+          <b-nav-item href="#metodos">Métodos de pago</b-nav-item>
+          <b-nav-item href="#como">Cómo funciona</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <!-- MainMenu-Area-End -->
+
     <!-- Home-Area -->
     <header class="home-area overlay" id="descarga">
       <div class="container">
