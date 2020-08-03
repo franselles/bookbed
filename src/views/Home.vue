@@ -68,16 +68,16 @@
               <h5 class="title">Playas Benidorm APP</h5>
               <div class="space-30"></div>
               <h3 class="blue-color">
-                Reserva de forma sencilla y atraves de ty smartphone las hamacas
-                de nuestro empresa. Gestionamos la reserva de hamacas en las
-                ciudades de Benidorm y Finestrat
+                Reserva de forma sencilla y a través de tú smartphone las
+                hamacas de nuestra empresa. Gestionamos la reserva de hamacas en
+                las ciudades de Benidorm y Finestrat.
               </h3>
               <div class="space-20"></div>
               <p>
                 De forma sencilla, podrás seleccionar el día, la ciudad y la
                 zona donde disponemos de hamacas y realizar la reserva de una o
                 varias hamacas así como complementos cómo las sombrillas.
-                Disfruta de la un día perfecto tomando el sol
+                Disfruta de la un día perfecto tomando el sol.
               </p>
             </div>
           </div>
@@ -151,7 +151,7 @@
                 <i class="lnr lnr-calendar-full"></i>
               </div>
               <h4>Resserva</h4>
-              <p>Realiza la reserv desde nuestra app</p>
+              <p>Realiza la reserva desde nuestra app</p>
             </div>
             <div class="space-50"></div>
             <div class="service-box wow fadeInUp" data-wow-delay="0.2s">
@@ -198,8 +198,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: 'home',
 };
