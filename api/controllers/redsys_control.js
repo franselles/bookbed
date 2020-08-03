@@ -5,20 +5,10 @@ require('dotenv').config();
 const Carts = require('../models/carts_model');
 const Users = require('../models/users_model');
 
-/* const {
-  secretKey,
-  makeParameters,
-  getResponseParameters,
-  CURRENCIES,
-  TRANSACTION_TYPES,
-} = require('redsys-pay'); */
-
-// secretKey(process.env.REDSYS_API_KEY);
-
 const RedSys = require('redsys-pos');
 const { CURRENCIES, TRANSACTION_TYPES } = RedSys;
 
-const MERCHANT_KEY = process.env.REDSYS_API_KEY; // TESTING KEY
+const MERCHANT_KEY = process.env.REDSYS_API_KEY;
 const redsys = new RedSys(MERCHANT_KEY);
 
 async function getMakeParameters(req, res) {

@@ -5,13 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
-    />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="author" content="playas benidorm app" />
+    <meta name="description" content="Alquiler de hamacas para playas" />
+    <meta name="keywords" content="Alquiler playas benidorm" />
+    <!-- Title -->
+    <title>Playas Benidorm APP</title>
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="images/logo-color.png" />
+    <link rel="shortcut icon" type="image/ico" href="images/logo-color.png" />
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/linearicons.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
   </head>
-  <body>
+  <body data-spy="scroll" data-target=".mainmenu-area">
     <noscript>
       <strong
         >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
@@ -20,6 +33,9 @@
       >
     </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <!--Vendor-JS-->
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/vendor/jquery-ui.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
   </body>
 </html>
