@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <p>COMPLETADO CON EXITO</p>
-    <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
-    <p>COMPRA REALIZADA CON EXITO</p>
+  <div class="content">
+    <div class="alert alert-success" role="alert">
+      <p>COMPLETADO CON EXITO</p>
+      <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
+      <p>COMPRA REALIZADA CON EXITO</p>
+    </div>
   </div>
 </template>
 

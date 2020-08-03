@@ -1,48 +1,57 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="correct">
       <form @submit.prevent="recovery">
-        <b-field label="CONTRASEÑA">
-          <b-input type="password" v-model="password" password-reveal required>
-          </b-input>
-        </b-field>
-        <b-field label="REPITA LA CONTRASEÑA">
-          <b-input type="password" v-model="password2" password-reveal required>
-          </b-input>
-        </b-field>
+        <b-form-group
+          id="password"
+          label="CONTRASEÑA"
+          label-for="password"
+          description="Introduzca la nueva contraseña."
+        >
+          <b-form-input
+            id="password"
+            v-model="password"
+            type="password"
+            required
+            placeholder="Contraseña"
+          ></b-form-input>
+        </b-form-group>
 
-        <article class="message is-danger" v-if="!checkPassword">
-          <div class="message-body">
-            LAS CONTRASEÑAS NO COINCIDEN.
-          </div>
-        </article>
+        <b-form-group
+          id="password2"
+          label="CONTRASEÑA"
+          label-for="password2"
+          description="Repita la nueva contraseña."
+        >
+          <b-form-input
+            id="password2"
+            v-model="password2"
+            type="password"
+            required
+            placeholder="Contraseña"
+          ></b-form-input>
+        </b-form-group>
 
-        <div class="buttons">
-          <b-button
-            type="is-success"
-            native-type="submit"
-            :disabled="!checkPassword"
-            >ACTUALIZAR</b-button
-          >
+        <div class="alert alert-danger" role="alert" v-if="!checkPassword">
+          LAS CONTRASEÑAS NO COINCIDEN.
         </div>
+
+        <b-button
+          block
+          type="submit"
+          variant="primary"
+          :disabled="!checkPassword"
+          >ACTUALIZAR</b-button
+        >
       </form>
     </div>
 
-    <div v-if="error">
-      <article class="message is-danger">
-        <div class="message-body">
-          PROCESO CADUCADO.
-        </div>
-      </article>
+    <div class="alert alert-danger" role="alert" v-if="error">
+      PROCESO CADUCADO.
     </div>
 
-    <div v-if="completed">
-      <article class="message is-success">
-        <div class="message-body">
-          CONTRASEÑA ACTUALIZADA.
-          <p>VUELVA A ENTRAR A LA APLICACIÓN.</p>
-        </div>
-      </article>
+    <div class="alert alert-success" role="alert" v-if="completed">
+      CONTRASEÑA ACTUALIZADA. VUELVA A ENTRAR A LA APLICACIÓN.
     </div>
   </div>
 </template>

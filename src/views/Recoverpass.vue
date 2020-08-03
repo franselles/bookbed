@@ -1,30 +1,36 @@
 <template>
-  <div>
-    <p>PROCESO DE RECUPERACION DE CONTRASEÑA</p>
+  <div class="container">
+    <div class="alert alert-primary" role="alert">
+      PROCESO DE RECUPERACION DE CONTRASEÑA
+    </div>
     <form @submit.prevent="recovery">
-      <b-field label="CORREO ELECTRÓNICO">
-        <b-input type="email" maxlength="30" v-model="emailLocal" required>
-        </b-input>
-      </b-field>
-      <div class="buttons">
-        <b-button type="is-success is-fullwidth" native-type="submit"
-          >ENTRAR</b-button
-        >
-      </div>
+      <b-form-group
+        id="emailLocal"
+        label="CORREO ELECTRÓNICO"
+        label-for="emailLocal"
+        description="Introduzca su correo electrónico."
+      >
+        <b-form-input
+          id="emailLocal"
+          v-model="emailLocal"
+          type="email"
+          required
+          placeholder="Correo electrónico"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button block type="submit" variant="primary">ENTRAR</b-button>
     </form>
-    <article class="message is-danger" v-if="error">
-      <div class="message-body">
-        EMAIL INCORRECTO O NO EXISTE
-      </div>
-    </article>
-    <article class="message is-success" v-if="correct">
-      <div class="message-body">
-        <p>REVISE SU CORREO ELECTRÓNICO.</p>
-        <p>REVISE LA BANDEJA DE SPAM.</p>
-        <p>Y SIGA LAS INSTRUCCIONES PARA</p>
-        <p>RECUPERAR LA CONTRASEÑA.</p>
-      </div>
-    </article>
+
+    <div class="alert alert-danger" role="alert" v-if="error">
+      EMAIL INCORRECTO O NO EXISTE
+    </div>
+
+    <div class="alert alert-success" role="alert" v-if="correct">
+      REVISE SU CORREO ELECTRÓNICO. <br />
+      REVISE LA BANDEJA DE SPAM. <br />
+      Y SIGA LAS INSTRUCCIONES PARA RECUPERAR LA CONTRASEÑA.
+    </div>
   </div>
 </template>
 

@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <p>ERROR NO SE HA COMPLETADO</p>
-    <p>NO SE HA PODIDO COMPLETAR LA COMPRA</p>
-    <p>GRACIAS POR RESERVAR HAMACAS CON R.A. BENIDORM</p>
-    <br />
+  <div class="content">
+    <div class="alert alert-danger" role="alert">
+      <p>ERROR NO SE HA COMPLETADO</p>
+      <p>NO SE HA PODIDO COMPLETAR LA COMPRA</p>
+      <p>GRACIAS POR UTILIZAR RESERVA HAMACAS</p>
+      <p>R.A. BENIDORM</p>
+    </div>
   </div>
 </template>
 
