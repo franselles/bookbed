@@ -44,7 +44,9 @@
               </p>
             </div>
             <div class="space-20"></div>
-            <a href="#" class="bttn-white sq wow fadeInUp"
+            <a
+              href="https://apps.apple.com/us/app/id1525546326"
+              class="bttn-white sq wow fadeInUp"
               ><img src="images/apple-icon.png" alt="apple icon" /> Apple
               Store</a
             >
