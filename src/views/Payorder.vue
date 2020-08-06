@@ -2,7 +2,7 @@
   <form
     ref="form"
     name="form"
-    action="https://sis-t.redsys.es:25443/sis/realizarPago"
+    action="https://sis.redsys.es/sis/realizarPago"
     method="POST"
   >
     <!-- target="_blank" -->
