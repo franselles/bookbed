@@ -158,6 +158,7 @@ function sendEmail(params, cart) {
     const data = {
       from: 'app@playasbenidorm.es',
       to: params.email,
+      bcc: 'app@playasbenidorm.es',
       subject: `Ticket de compra ${cart.ticketID} - playasbenidorm.app`,
       html: emailBody,
     };
