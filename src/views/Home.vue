@@ -50,7 +50,9 @@
               ><img src="images/apple-icon.png" alt="apple icon" /> Apple
               Store</a
             >
-            <a href="#" class="bttn-white sq wow fadeInUp"
+            <a
+              href="https://play.google.com/store/apps/details?id=com.pixel78.ivan.playasbenidorm"
+              class="bttn-white sq wow fadeInUp"
               ><img src="images/play-store-icon.png" alt="Play Store Icon" />
               Play Store</a
             >

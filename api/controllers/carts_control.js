@@ -320,11 +320,6 @@ function getTicketNumberFunction() {
 
   return new Promise(resolve => {
     Carts.aggregate([
-      // {
-      //   $match: {
-      //     date: date,
-      //   },
-      // },
       {
         $count: 'tickets',
       },
@@ -334,15 +329,79 @@ function getTicketNumberFunction() {
   });
 }
 
-function getTicketNumber(req, res) {
-  // const date = req.query.date;
+function getTicketNumberByYearFunction() {
+  const dateL = new Date();
+  const y = String(dateL.getFullYear());
+
+  return new Promise(resolve => {
+    Carts.aggregate([
+      {
+        $project: {
+          year: { $substr: ['$date', 0, 4] },
+        },
+      },
+      {
+        $match: {
+          year: y,
+        },
+      },
+      {
+        $group: {
+          _id: {
+            year: '$year',
+          },
+          tickets: {
+            $sum: 1,
+          },
+        },
+      },
+    ]).exec((err, doc) => {
+      resolve(doc);
+    });
+  });
+}
+
+function getTicketNumberByYear(req, res) {
+  const dateL = new Date();
+  const y = String(dateL.getFullYear());
 
   Carts.aggregate([
-    // {
-    //   $match: {
-    //     date: date,
-    //   },
-    // },
+    {
+      $project: {
+        year: { $substr: ['$date', 0, 4] },
+      },
+    },
+    {
+      $match: {
+        year: y,
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: '$year',
+        },
+        tickets: {
+          $sum: 1,
+        },
+      },
+    },
+  ]).exec((err, doc) => {
+    if (err)
+      return res.status(500).send({
+        message: `Error al realizar la petición: ${err}`,
+      });
+    if (!doc)
+      return res.status(404).send({
+        message: 'No existe',
+      });
+
+    res.status(200).send(doc);
+  });
+}
+
+function getTicketNumber(req, res) {
+  Carts.aggregate([
     {
       $count: 'tickets',
     },
@@ -391,4 +450,6 @@ module.exports = {
   checkAvaiability,
   postCartCheck,
   getTicket,
+  getTicketNumberByYear,
+  getTicketNumberByYearFunction,
 };

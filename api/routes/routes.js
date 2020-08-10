@@ -32,6 +32,7 @@ api.post('/cart', cartsControl.postCartCheck);
 api.post('/check', cartsControl.checkAvaiability);
 api.get('/carts', cartsControl.getCarts);
 api.get('/tickets', cartsControl.getTicketNumber);
+api.get('/ticketsbyyear', cartsControl.getTicketNumberByYear);
 api.get('/ticket', cartsControl.getTicket);
 api.get('/detailday', cartsControl.getCartsDetail);
 
