@@ -154,7 +154,7 @@
               <div class="box-icon">
                 <i class="lnr lnr-calendar-full"></i>
               </div>
-              <h4>Resserva</h4>
+              <h4>Reserva</h4>
               <p>Realiza la reserva desde nuestra app</p>
             </div>
             <div class="space-50"></div>
