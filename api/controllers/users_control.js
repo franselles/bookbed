@@ -116,7 +116,7 @@ function sendEmail2(params) {
     const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
 
     const data = {
-      from: 'playasbenidorm.app <app@mail.playasbenidorm.es>',
+      from: 'playasbenidorm.app <app@playasbenidorm.es>',
       to: params.email,
       subject: `Recuperación de contraseña - playasbenidorm.app`,
       html: emailBody,
