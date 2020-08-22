@@ -156,7 +156,7 @@ function sendEmail(params, cart) {
     const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
 
     const data = {
-      from: 'app@playasbenidorm.es',
+      from: 'playasbenidorm.app <app@mail.playasbenidorm.es>',
       to: params.email,
       bcc: 'app@playasbenidorm.es',
       subject: `Ticket de compra ${cart.ticketID} - playasbenidorm.app`,
