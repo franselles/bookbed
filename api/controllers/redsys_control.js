@@ -153,7 +153,12 @@ function sendEmail(params, cart) {
 
     const api_key = process.env.MAILGUN_API_KEY;
     const domain = process.env.MAILGUN_DOMAIN;
-    const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
+    const mailgun = require('mailgun-js')({
+      apiKey: api_key,
+      domain: domain,
+      username: 'api',
+      url: 'https://api.eu.mailgun.net',
+    });
 
     const data = {
       from: 'playasbenidorm.app <app@playasbenidorm.es>',
