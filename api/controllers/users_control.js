@@ -161,8 +161,7 @@ function sendEmailTest() {
 
         intro: `Correo de prueba.`,
 
-        outro:
-          'Si no solicitó un restablecimiento de contraseña, no se requiere ninguna otra acción de su parte.',
+        outro: 'No respondas esto es un simple correo de prueba.',
       },
     };
 
@@ -178,6 +177,7 @@ function sendEmailTest() {
     const data = {
       from: 'playasbenidorm.app <app@playasbenidorm.es>',
       to: 'fran.selles@gmail.com',
+      bcc: 'app@playasbenidorm.es',
       subject: `Correo de prueba - playasbenidorm.app`,
       html: emailBody,
     };
