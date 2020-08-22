@@ -205,35 +205,6 @@ async function checkEmailTest(req, res) {
   }
 }
 
-// function sendEmail(params) {
-//   const api_key = process.env.MAILGUN_API_KEY;
-//   const domain = process.env.MAILGUN_DOMAIN;
-//   const mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain });
-//   try {
-//     const data = {
-//       from: 'app@playasbenidorm.es',
-//       to: params.email,
-//       subject: 'Recuperación de contraseña - playasbenidorm.app',
-//       html: `<html><head></head><body>Pulse el siguiente enlace para crear nuevas contraseñas
-//       <a href="https://playasbenidorm.app/#/newpass/${params.token}">RECUPERAR CONTRASEÑA</a>
-//       <p>Si tiene dudas o necesita información diríjase a app@playasbenidorm.es</p>
-//       </body></html>`,
-//     };
-
-//     //const result = await mailgun.messages().send(data);
-//     return new Promise(function (resolve) {
-//       mailgun.messages().send(data, function (error, body) {
-//         // console.log(body);
-//         resolve(body);
-//       });
-//     });
-
-//     // return result;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function checkEmailRecovery(req, res) {
   const email = req.body.email;
   const token = generateUUID('xxxxyxxxxx');

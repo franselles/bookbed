@@ -156,8 +156,6 @@ function sendEmail(params, cart) {
     const mailgun = require('mailgun-js')({
       apiKey: api_key,
       domain: domain,
-      username: 'api',
-      url: 'https://api.eu.mailgun.net',
     });
 
     const data = {

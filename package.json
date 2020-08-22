@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.98",
+  "version": "0.3.99",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
