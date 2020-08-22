@@ -139,6 +139,72 @@ function sendEmail2(params) {
   }
 }
 
+function sendEmailTest() {
+  try {
+    const Mailgen = require('mailgen');
+
+    const mailGenerator = new Mailgen({
+      theme: 'default',
+      product: {
+        // Appears in header & footer of e-mails
+        name: 'playasbenidorm.app',
+        link: 'https://playasbenidorm.app/',
+        copyright: 'Copyright © 2020 R.A. BENIDORM S.L.',
+      },
+    });
+
+    // Prepare email contents
+    const email = {
+      body: {
+        greeting: 'Hola',
+        signature: 'Atentamente',
+
+        intro: `Correo de prueba.`,
+
+        outro:
+          'Si no solicitó un restablecimiento de contraseña, no se requiere ninguna otra acción de su parte.',
+      },
+    };
+
+    const emailBody = mailGenerator.generate(email);
+
+    const api_key = process.env.MAILGUN_API_KEY;
+    const domain = process.env.MAILGUN_DOMAIN;
+    const mailgun = require('mailgun-js')({
+      apiKey: api_key,
+      domain: domain,
+    });
+
+    const data = {
+      from: 'playasbenidorm.app <app@playasbenidorm.es>',
+      to: 'fran.selles@gmail.com',
+      subject: `Correo de prueba - playasbenidorm.app`,
+      html: emailBody,
+    };
+
+    //const result = await mailgun.messages().send(data);
+    return new Promise(function (resolve) {
+      mailgun.messages().send(data, function (error, body) {
+        // console.log(body);
+        resolve(body);
+      });
+    });
+
+    // return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function checkEmailTest(res) {
+  try {
+    await sendEmailTest();
+    return res.status(200).send('Enviado prueba');
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 // function sendEmail(params) {
 //   const api_key = process.env.MAILGUN_API_KEY;
 //   const domain = process.env.MAILGUN_DOMAIN;
@@ -564,4 +630,5 @@ module.exports = {
   updatePassword,
   getUserById,
   postUser2,
+  checkEmailTest,
 };

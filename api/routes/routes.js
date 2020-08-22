@@ -45,6 +45,7 @@ api.post('/user', usersControl.postUser2);
 api.post('/recovery', usersControl.checkEmailRecovery);
 api.get('/recovery', usersControl.checkTokenPass);
 api.post('/updated', usersControl.updatePassword);
+api.post('/testemail', usersControl.checkEmailTest);
 
 // Sold tickest and filled sectors
 api.get('/available', filledControl.getFilledSector);
