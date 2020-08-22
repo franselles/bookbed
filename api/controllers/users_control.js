@@ -196,12 +196,12 @@ function sendEmailTest() {
   }
 }
 
-async function checkEmailTest(res) {
+async function checkEmailTest(req, res) {
   try {
     await sendEmailTest();
-    return res.status(200).send('Enviado prueba');
+    res.status(200).send('Enviado prueba');
   } catch (error) {
-    return res.status(500).send(error);
+    res.status(500).send(error);
   }
 }
 
