@@ -9,6 +9,7 @@ function getSectors(req, res) {
   Sectors.find({
     cityID: cityID,
     beachID: beachID,
+    blocked: false,
   })
     .sort({ sectorID: 1 })
     .exec((err, doc) => {
