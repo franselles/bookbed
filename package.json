@@ -1,6 +1,6 @@
 {
   "name": "playasbenidorm_app",
-  "version": "0.3.102",
+  "version": "0.3.103",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,7 +13,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
-    "bootstrap-vue": "^2.20.1",
+    "bootstrap-vue": "^2.21.0",
     "core-js": "^3.8.1",
     "cors": "^2.8.5",
     "dayjs": "^1.9.7",
@@ -23,7 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mailgen": "^2.0.14",
     "mailgun-js": "^0.22.0",
-    "mongoose": "^5.11.5",
+    "mongoose": "^5.11.8",
     "redsys-pos": "^1.0.2",
     "vue": "^2.6.12",
     "vue-axios": "^2.1.5",
@@ -37,8 +37,8 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.15.0",
-    "eslint-plugin-prettier": "^3.2.0",
-    "eslint-plugin-vue": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-vue": "^7.3.0",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "vue-template-compiler": "^2.6.12"
